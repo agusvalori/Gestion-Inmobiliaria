@@ -88,10 +88,11 @@ public class TestMain {
         persona.setEstado(true);
         personaData.editarPersona(persona);
          */
- /*### ELIMINAR PERSONA ###
+ //### ELIMINAR PERSONA ###
         PersonaData personaData = new PersonaData(conexion);        
-        personaData.eliminarPersona(3);
-         */
+        personaData.eliminarPersona(7);
+        personaData.eliminarPersona(8);
+         
  
         //#################################################################################
         //Agregar un inquilino

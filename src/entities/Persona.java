@@ -16,20 +16,26 @@ public class Persona {
     private Long cuit=0L;
     private String email;
     private Long telefono=0L;
-    private Boolean estado;
+    private Boolean estado=true;
+    private String calificacionInquilino="Ninguna";
+    private String calificacionPropietario="Ninguna";
+    private String calificacionGarante="Ninguna";
+    private String calificacionEmpleado="Ninguna";
 
     public Persona() {
     }
 
-    public Persona(Integer id, String nombre, String apellido, Long dni,  Long cuit,String email, Long telefono, Boolean estado) {
+    public Persona(Integer id, String nombre, String apellido, Long dni, String email, Boolean estado, String calificacionInquilino, String calificacionPropietario, String calificacionGarante, String calificacionEmpleado) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.cuit = cuit;
         this.email = email;
-        this.telefono = telefono;
         this.estado = estado;
+        this.calificacionInquilino = calificacionInquilino;
+        this.calificacionPropietario = calificacionPropietario;
+        this.calificacionGarante = calificacionGarante;
+        this.calificacionEmpleado = calificacionEmpleado;
     }
 
     public Integer getId() {
@@ -64,6 +70,22 @@ public class Persona {
         return estado;
     }
 
+    public String getCalificacionInquilino() {
+        return calificacionInquilino;
+    }
+
+    public String getCalificacionPropietario() {
+        return calificacionPropietario;
+    }
+
+    public String getCalificacionGarante() {
+        return calificacionGarante;
+    }
+
+    public String getCalificacionEmpleado() {
+        return calificacionEmpleado;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -95,9 +117,21 @@ public class Persona {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
-    
-    
-    
+
+    public void setCalificacionInquilino(String calificacionInquilino) {
+        this.calificacionInquilino = calificacionInquilino;
+    }
+
+    public void setCalificacionPropietario(String calificacionPropietario) {
+        this.calificacionPropietario = calificacionPropietario;
+    }
+
+    public void setCalificacionGarante(String calificacionGarante) {
+        this.calificacionGarante = calificacionGarante;
+    }
+
+    public void setCalificacionEmpleado(String calificacionEmpleado) {
+        this.calificacionEmpleado = calificacionEmpleado;
+    }
     
 }

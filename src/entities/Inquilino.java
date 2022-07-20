@@ -12,13 +12,17 @@ public class Inquilino {
 
     private Integer id;
     private Persona persona;    
-
+    private String condicion;
+    private int cantRenovaciones;
+            
     public Inquilino() {
     }
 
-    public Inquilino(Integer id, Persona persona) {
+    public Inquilino(Integer id, Persona persona, String condicion, int cantRenovaciones) {
         this.id = id;
-        this.persona = persona;        
+        this.persona = persona;
+        this.condicion = condicion;
+        this.cantRenovaciones = cantRenovaciones;
     }
 
     public Integer getId() {
@@ -29,12 +33,28 @@ public class Inquilino {
         return persona;
     }
 
+    public String getCondicion() {
+        return condicion;
+    }
+
+    public int getCantRenovaciones() {
+        return cantRenovaciones;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public void setCondicion(String condicion) {
+        this.condicion = condicion;
+    }
+
+    public void setCantRenovaciones(int cantRenovaciones) {
+        this.cantRenovaciones = cantRenovaciones;
     }
 
     

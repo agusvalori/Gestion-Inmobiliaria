@@ -25,7 +25,7 @@ public class TestMain {
         Conexion conexion = new Conexion();
 
         //Agregar persona
-        /*
+        
         PersonaData personaData = new PersonaData(conexion);
         Persona persona = new Persona();
         persona.setNombre("Agustin");
@@ -35,8 +35,8 @@ public class TestMain {
         persona.setTelefono(2664860724L);
         persona.setEmail("agusvalori@gmail.com");
         persona.setEstado(true);
-        personaData.agregarPersona(persona);
-         */
+        //personaData.agregarPersona(persona);
+         
  /* ### Obtener persona x ID ###
         PersonaData personaData = new PersonaData(conexion);
         Persona persona = new Persona();
@@ -88,19 +88,19 @@ public class TestMain {
         persona.setEstado(true);
         personaData.editarPersona(persona);
          */
- //### ELIMINAR PERSONA ###
+
+ /* ### ELIMINAR PERSONA ###
         PersonaData personaData = new PersonaData(conexion);        
         personaData.eliminarPersona(7);
         personaData.eliminarPersona(8);
-         
- 
+         */
         //#################################################################################
         //Agregar un inquilino
-        /*InquilinoData inquilinoData = new InquilinoData(conexion);
+        InquilinoData inquilinoData = new InquilinoData(conexion);
         Inquilino inquilino = new Inquilino();
         inquilino.setPersona(persona);
         inquilinoData.agregarInquilino(inquilino);
-         */
+         
     }
 
 }

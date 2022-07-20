@@ -35,7 +35,6 @@ public class InquilinoData {
         Boolean result = false;
         if (personaData.agregarPersona(inquilino.getPersona())) {
             try {
-
                 String querySql = "INSERT INTO inquilino(id_persona) VALUES (?)";
                 PreparedStatement ps = conn.prepareStatement(querySql, RETURN_GENERATED_KEYS);
                 ps.setInt(1, inquilino.getPersona().getId());
@@ -70,8 +69,12 @@ public class InquilinoData {
             ResultSet result = ps.executeQuery();
 
             while (result.next()) {
-                Inquilino inquilino = new Inquilino();                
+                Inquilino inquilino = new Inquilino();
+
                 inquilino.setId(result.getInt("id_inquilino"));
+                inquilino.setPersona(personaData.obtenerPersonaXId(result.getInt("id_persona")));
+                inquilino.setCondicion(result.getString("condicion"));
+                inquilino.setCantRenovaciones(result.getInt("cant_renovacion"));
                 inquilinoList.add(inquilino);
             }
             ps.close();
@@ -82,4 +85,46 @@ public class InquilinoData {
         return inquilinoList;
     }
 
+    public Inquilino obtenerInquilinosXDni(Long dni) {
+        Inquilino inquilino = new Inquilino();
+        try {
+            Persona persona = personaData.obtenerPersonaXDni(dni);
+            if (persona.getNombre() != null) {
+                inquilino.setPersona(persona);
+                String querySql = "SELECT * FROM inquilino  WHERE id_persona=?";
+                PreparedStatement ps = conn.prepareStatement(querySql);
+                ps.setLong(1, persona.getId());
+                ResultSet result = ps.executeQuery();
+                while (result.next()) {
+                    inquilino.setId(result.getInt("id_inquilino"));
+                    inquilino.setCondicion(result.getString("condicion"));
+                    inquilino.setCantRenovaciones(result.getInt("cant_renovacion"));
+                }
+                ps.close();
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de Inquilinos" + ex);
+        }
+        return inquilino;
+    }
+
+    public Boolean eliminarInquilino(Integer id) {
+        Boolean result = false;
+        try {
+            String querySql = "DELETE FROM inquilino WHERE id_inquilino=?";
+            PreparedStatement ps = conn.prepareStatement(querySql);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 0) {
+                JOptionPane.showMessageDialog(null, "Inquilino eliminado");
+                result = true;
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null,
+                    "Error al eliminar el inquilino desde la base de datos: \n" + e.getMessage(),
+                    "Error al eliminar el Inquilino", JOptionPane.WARNING_MESSAGE);
+        }
+        return result;
+    }
 }

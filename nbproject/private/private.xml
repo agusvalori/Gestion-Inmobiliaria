@@ -3,23 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/ContratoData.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/InmuebleData.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/entities/Garante.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/GaranteData.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/entities/Persona.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/entities/Inmueble.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/entities/Contrato.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/views/AppMenu.java</file>
             <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/Conexion.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/entities/Propietario.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/InquilinoData.java</file>
+            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/views/AppMenu.java</file>
             <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/PersonaData.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/PropietarioData.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/data/EmpleadoData.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/entities/Inquilino.java</file>
             <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/test/TestMain.java</file>
-            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/entities/Empleado.java</file>
+            <file>file:/C:/Users/agusv/OneDrive/Programacion/java/JavaSwing/Gestion-Inmobiliaria/src/views/InquilinoDialogView.java</file>
         </group>
     </open-files>
 </project-private>

@@ -22,7 +22,7 @@ public class PersonaData {
         Boolean result = false;
         try {
 
-            String querySql = "INSERT INTO persona(nombre, apellido, dni, cuit, email, telefono,estado) VALUES (?,?,?,?,?,?,?)";
+            String querySql = "INSERT INTO persona(nombre, apellido, dni, cuit, email, telefono,estado,calificacion_inquilino,calificacion_propietario,calificacion_garante,calificacion_empleado) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(querySql, RETURN_GENERATED_KEYS);
             ps.setString(1, persona.getNombre());
             ps.setString(2, persona.getApellido());
@@ -31,6 +31,10 @@ public class PersonaData {
             ps.setString(5, persona.getEmail());
             ps.setLong(6, persona.getTelefono());
             ps.setBoolean(7, persona.getEstado());
+            ps.setString(8, persona.getCalificacionInquilino());
+            ps.setString(9, persona.getCalificacionPropietario());
+            ps.setString(10, persona.getCalificacionGarante());
+            ps.setString(11, persona.getCalificacionEmpleado());
             ps.executeUpdate();
             ResultSet resultSet = ps.getGeneratedKeys();
 
@@ -64,6 +68,10 @@ public class PersonaData {
                 persona.setCuit(resultSet.getLong("cuit"));
                 persona.setEmail(resultSet.getString("email"));
                 persona.setTelefono(resultSet.getLong("dni"));
+                persona.setCalificacionInquilino(resultSet.getString("calificacion_inquilino"));
+                persona.setCalificacionPropietario(resultSet.getString("calificacion_propietario"));
+                persona.setCalificacionGarante(resultSet.getString("calificacion_garante"));
+                persona.setCalificacionEmpleado(resultSet.getString("calificacion_empleado"));
                 personaList.add(persona);
             }
             ps.close();
@@ -88,7 +96,11 @@ public class PersonaData {
                 persona.setDni(resultSet.getLong("dni"));
                 persona.setCuit(resultSet.getLong("cuit"));
                 persona.setEmail(resultSet.getString("email"));
-                persona.setTelefono(resultSet.getLong("dni"));
+                persona.setTelefono(resultSet.getLong("telefono"));
+                persona.setCalificacionInquilino(resultSet.getString("calificacion_inquilino"));
+                persona.setCalificacionPropietario(resultSet.getString("calificacion_propietario"));
+                persona.setCalificacionGarante(resultSet.getString("calificacion_garante"));
+                persona.setCalificacionEmpleado(resultSet.getString("calificacion_empleado"));
             }
             ps.close();
         } catch (Exception e) {
@@ -99,7 +111,7 @@ public class PersonaData {
     }
 
     public Persona obtenerPersonaXDni(Long dni) {
-        Persona persona = new Persona();
+        Persona persona = new Persona();        
 
         try {
             String querySql = "SELECT * FROM persona WHERE dni=?";
@@ -113,7 +125,11 @@ public class PersonaData {
                 persona.setDni(resultSet.getLong("dni"));
                 persona.setCuit(resultSet.getLong("cuit"));
                 persona.setEmail(resultSet.getString("email"));
-                persona.setTelefono(resultSet.getLong("dni"));
+                persona.setTelefono(resultSet.getLong("telefono"));
+                persona.setCalificacionInquilino(resultSet.getString("calificacion_inquilino"));
+                persona.setCalificacionPropietario(resultSet.getString("calificacion_propietario"));
+                persona.setCalificacionGarante(resultSet.getString("calificacion_garante"));
+                persona.setCalificacionEmpleado(resultSet.getString("calificacion_empleado"));
             }
             ps.close();
         } catch (Exception e) {
@@ -126,7 +142,7 @@ public class PersonaData {
     public Boolean editarPersona(Persona persona) {
         Boolean result = false;
         try {
-            String querySql = "UPDATE persona SET nombre=?, apellido=?, dni=?, cuit=?, email=?, telefono=?,estado=? WHERE id_persona=?";
+            String querySql = "UPDATE persona SET nombre=?, apellido=?, dni=?, cuit=?, email=?, telefono=?,estado=?,calificacion_inquilino=?,calificacion_propietario=? ,calificacion_garante=? ,calificacion_empleado=?  WHERE id_persona=?";
             PreparedStatement ps = conn.prepareStatement(querySql);
             ps.setString(1, persona.getNombre());
             ps.setString(2, persona.getApellido());
@@ -135,6 +151,10 @@ public class PersonaData {
             ps.setString(5, persona.getEmail());
             ps.setLong(6, persona.getTelefono());
             ps.setBoolean(7, persona.getEstado());
+            ps.setString(8, persona.getCalificacionInquilino());
+            ps.setString(9, persona.getCalificacionPropietario());
+            ps.setString(10, persona.getCalificacionGarante());
+            ps.setString(11, persona.getCalificacionEmpleado());
             ps.setInt(8, persona.getId());
             if (ps.executeUpdate() != 0) {
                 System.out.println("La persona fue modificada con exito");

@@ -26,8 +26,7 @@ public class AppMenu extends javax.swing.JFrame {
 
 
     public void cargarTablaInquilinos() {
-
-        
+                
         
     }
 

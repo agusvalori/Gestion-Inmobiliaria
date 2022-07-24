@@ -64,7 +64,7 @@ public class InquilinoData {
     public ArrayList<Inquilino> obtenerInquilinos() {
         ArrayList<Inquilino> inquilinoList = new ArrayList<>();
         try {
-            String querySql = "SELECT * FROM inquilinos";
+            String querySql = "SELECT * FROM inquilino";
             PreparedStatement ps = conn.prepareStatement(querySql);
             ResultSet result = ps.executeQuery();
 

@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 
 import data.Conexion;
 import data.InquilinoData;
-import data.PersonaData;
 import entities.Inquilino;
 import entities.Persona;
 
@@ -16,7 +15,8 @@ import entities.Persona;
  *
  * @author agusv
  */
-public class InquilinoDialogView extends javax.swing.JDialog {    
+public class InquilinoDialogView extends javax.swing.JDialog {
+
     private InquilinoData inquilinoData;
 
     public InquilinoDialogView(java.awt.Frame parent, boolean modal) {
@@ -28,12 +28,23 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
     public InquilinoDialogView(java.awt.Frame parent, boolean modal, Conexion conexion) {
         super(parent, modal);
-        initComponents();        
+        initComponents();
         inquilinoData = new InquilinoData(conexion);
         pnlCantRenevaciones.setVisible(false);
     }
 
+    public InquilinoDialogView(java.awt.Frame parent, boolean modal, Conexion conexion, Inquilino inquilino) {
+        super(parent, modal);
+        initComponents();
+        inquilinoData = new InquilinoData(conexion);
+        obtenerDatosInquilino(inquilino);
+        pnlCantRenevaciones.setVisible(false);
+    }
+
     private void obtenerDatosInquilino(Inquilino inquilino) {
+        txfId.setText(String.valueOf(inquilino.getId()));
+
+        txfDni.setText(String.valueOf(inquilino.getPersona().getDni()));
         txfNombre.setEnabled(true);
         txfNombre.setText(inquilino.getPersona().getNombre());
 
@@ -49,6 +60,20 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         txfTelefono.setEnabled(true);
         txfTelefono.setText(String.valueOf(inquilino.getPersona().getTelefono()));
 
+        selectCondicion.setEnabled(true);
+        if (inquilino.getId() != null) {
+            selectCondicion.setSelectedItem("Renovante");
+            pnlCantRenevaciones.setEnabled(true);
+            txfCantRenovaciones.setText(String.valueOf(inquilino.getCantRenovaciones()));
+        } else {
+            selectCondicion.setSelectedItem(inquilino.getCondicion());
+            if (inquilino.getCondicion().equals("Renovante")) {
+                pnlCantRenevaciones.setEnabled(true);
+            } else {
+                pnlCantRenevaciones.setEnabled(false);
+            }
+        }
+
         selectCalificacionInquilino.setEnabled(true);
         selectCalificacionInquilino.setSelectedItem(inquilino.getPersona().getCalificacionInquilino());
 
@@ -60,10 +85,17 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
         selectCalificacionEmpleado.setEnabled(true);
         selectCalificacionEmpleado.setSelectedItem(inquilino.getPersona().getCalificacionEmpleado());
+
+        btnBorrar.setEnabled(true);
+        btnEditar.setEnabled(true);
+        btnSalir.setEnabled(true);
+        btnLimpiar.setEnabled(true);
+        btnGuardar.setEnabled(false);
     }
 
     private void limpiarDatosPersonas(Boolean state) {
         txfId.setText("");
+        txfDni.setText("");
 
         txfNombre.setEnabled(state);
         txfNombre.setText("");
@@ -80,6 +112,8 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         txfTelefono.setEnabled(state);
         txfTelefono.setText("");
 
+        selectCondicion.setEnabled(state);
+
         selectCalificacionInquilino.setEnabled(state);
         selectCalificacionInquilino.setSelectedItem("Ninguna");
         selectCalificacionPropietario.setEnabled(state);
@@ -90,6 +124,88 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         selectCalificacionEmpleado.setSelectedItem("Ninguna");
         pnlCantRenevaciones.setVisible(false);
 
+        btnBorrar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnSalir.setEnabled(true);
+        btnLimpiar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+    }
+
+    public Inquilino validar() {
+        String result = "";
+        try {
+            Inquilino inquilino = new Inquilino();
+            Persona persona = new Persona();
+
+            if (txfNombre.getText().isBlank()) {
+                result += "Nombre: Vacio\n";
+            } else {
+                persona.setNombre(txfNombre.getText());
+            }
+
+            if (txfApellido.getText().isBlank()) {
+                result += "Apellido: Vacio\n";
+            } else {
+                persona.setApellido(txfApellido.getText());
+            }
+
+            if (txfDni.getText().isBlank()) {
+                result += "Dni: Vacio\n";
+            } else {
+                try {
+                    persona.setDni(Long.parseLong(txfDni.getText()));
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    result += "Dni: Debe ser un numero\n";
+                }
+            }
+
+            if (txfCuit.getText().isBlank()) {
+                result += "Cuit: Vacio\n";
+            } else {
+                try {
+                    persona.setCuit(Long.parseLong(txfCuit.getText()));
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    result += "Cuit: Debe ser un numero\n";
+                }
+            }
+
+            persona.setEmail(txfEmail.getText());
+
+            if (!txfTelefono.getText().isBlank()) {
+                try {
+                    persona.setTelefono(Long.parseLong(txfTelefono.getText()));
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    result += "Telefono: Debe ser un numero\n";
+                }
+            }
+
+            persona.setCalificacionInquilino(selectCalificacionInquilino.getSelectedItem().toString());
+            persona
+                    .setCalificacionPropietario(selectCalificacionPropietario.getSelectedItem().toString());
+            persona.setCalificacionGarante(selectCalificacionGarante.getSelectedItem().toString());
+            persona.setCalificacionEmpleado(selectCalificacionEmpleado.getSelectedItem().toString());
+
+            inquilino.setCondicion(selectCondicion.getSelectedItem().toString());
+
+            if (result.isEmpty() || result.isBlank()) {
+                inquilino.setPersona(persona);
+                return inquilino;
+            } else {
+                JOptionPane.showMessageDialog(null, "Valores ingresados invalidos\n" + result,
+                        "Valores invalidos",
+                        JOptionPane.WARNING_MESSAGE);
+                return null;
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null, "Valores ingresados invalidos\n" + result + "\n" + e.getMessage(),
+                    "Valores invalidos",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
 
     /**
@@ -98,6 +214,9 @@ public class InquilinoDialogView extends javax.swing.JDialog {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
@@ -140,9 +259,10 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -161,6 +281,11 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
         selectCalificacionInquilino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
         selectCalificacionInquilino.setEnabled(false);
+        selectCalificacionInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectCalificacionInquilinoActionPerformed(evt);
+            }
+        });
 
         selectCalificacionPropietario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
         selectCalificacionPropietario.setEnabled(false);
@@ -419,20 +544,22 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         );
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Salir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
         btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -440,9 +567,18 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.setEnabled(false);
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -453,13 +589,15 @@ public class InquilinoDialogView extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,9 +605,10 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
-                    .addComponent(jButton2)
+                    .addComponent(btnSalir)
                     .addComponent(btnBorrar)
-                    .addComponent(btnLimpiar))
+                    .addComponent(btnLimpiar)
+                    .addComponent(btnEditar))
                 .addContainerGap())
         );
 
@@ -479,16 +618,14 @@ public class InquilinoDialogView extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,6 +656,10 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectCalificacionInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectCalificacionInquilinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectCalificacionInquilinoActionPerformed
+
     private void txfNombreFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_txfNombreFocusLost
         // TODO add your handling code here:
 
@@ -528,84 +669,29 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }// GEN-LAST:event_txfCuitFocusLost
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        if (validar() != null) {
+            JOptionPane.showMessageDialog(null, "Validacion Correcta");
+        } else {
+            JOptionPane.showMessageDialog(null, "Validacion incorrecta");
+        }
+
+    }// GEN-LAST:event_btnEditarActionPerformed
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String result = "";
-        try {
-            Inquilino inquilino = new Inquilino();
-            Persona persona = new Persona();
-
-            if (txfNombre.getText().isBlank()) {
-                result += "Nombre: Vacio\n";
-            } else {
-                persona.setNombre(txfNombre.getText());
+        Inquilino inquilino = new Inquilino();
+        inquilino = validar();
+        if (inquilino != null) {            
+            if (inquilinoData.agregarInquilino(inquilino)) {
+                txfId.setText(String.valueOf(inquilino.getId()));
             }
-
-            if (txfApellido.getText().isBlank()) {
-                result += "Apellido: Vacio\n";
-            } else {
-                persona.setApellido(txfApellido.getText());
-            }
-
-            if (txfDni.getText().isBlank()) {
-                result += "Dni: Vacio\n";
-            } else {
-                try {
-                    persona.setDni(Long.parseLong(txfDni.getText()));
-                } catch (Exception e) {
-                    // TODO: handle exception
-                    result += "Dni: Debe ser un numero\n";
-                }
-            }
-
-            if (txfCuit.getText().isBlank()) {
-                result += "Cuit: Vacio\n";
-            } else {
-                try {
-                    persona.setCuit(Long.parseLong(txfCuit.getText()));
-                } catch (Exception e) {
-                    // TODO: handle exception
-                    result += "Cuit: Debe ser un numero\n";
-                }
-            }
-
-            persona.setEmail(txfEmail.getText());
-
-            if (!txfTelefono.getText().isBlank()) {
-                try {
-                    persona.setTelefono(Long.parseLong(txfTelefono.getText()));
-                } catch (Exception e) {
-                    // TODO: handle exception
-                    result += "Telefono: Debe ser un numero\n";
-                }
-            }
-
-            persona.setCalificacionInquilino(selectCalificacionInquilino.getSelectedItem().toString());
-            persona
-                    .setCalificacionPropietario(selectCalificacionPropietario.getSelectedItem().toString());
-            persona.setCalificacionGarante(selectCalificacionGarante.getSelectedItem().toString());
-            persona.setCalificacionEmpleado(selectCalificacionEmpleado.getSelectedItem().toString());            
-
-            inquilino.setCondicion(selectCondicion.getSelectedItem().toString());
-
-            if (result.isEmpty() || result.isBlank()) {
-                inquilino.setPersona(persona);
-                inquilinoData.agregarInquilino(inquilino);
-            } else {
-                JOptionPane.showMessageDialog(null, "Valores ingresados invalidos\n" + result,
-                        "Valores invalidos",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "Valores ingresados invalidos\n" + result + "\n" + e.getMessage(),
-                    "Valores invalidos",
-                    JOptionPane.ERROR_MESSAGE);
         }
 
     }// GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
     }// GEN-LAST:event_jButton2ActionPerformed
@@ -616,14 +702,22 @@ public class InquilinoDialogView extends javax.swing.JDialog {
             Inquilino inquilino = new Inquilino();
 
             if (txfDni.getText().isBlank()) {
-                JOptionPane.showMessageDialog(null, "Ingrese un numero de dni", "Dni invalido", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ingrese un numero de dni", "Dni invalido",
+                        JOptionPane.INFORMATION_MESSAGE);
+                btnBorrar.setEnabled(false);
+                btnEditar.setEnabled(false);
+                btnSalir.setEnabled(true);
+                btnLimpiar.setEnabled(true);
+                btnGuardar.setEnabled(true);
 
             } else {
                 inquilino = inquilinoData.obtenerInquilinosXDni(Long.parseLong(txfDni.getText()));
                 if (inquilino.getPersona() != null) {
                     obtenerDatosInquilino(inquilino);
                 } else {
+                    String dni = txfDni.getText();
                     limpiarDatosPersonas(true);
+                    txfDni.setText(dni);
                 }
                 txfNombre.setFocusable(true);
             }
@@ -646,16 +740,13 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         try {
             id = Integer.parseInt(txfId.getText());
             inquilinoData.eliminarInquilino(id);
+            limpiarDatosPersonas(false);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Vslor del inquilino invalido", "Error al eliminar el inquilino",
+            JOptionPane.showMessageDialog(null, "Valor del inquilino invalido", "Error al eliminar el inquilino",
                     JOptionPane.INFORMATION_MESSAGE);
         }
 
     }// GEN-LAST:event_btnBorrarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jButton1ActionPerformed
 
     private void txfCantRenovacionesFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_txfCantRenovacionesFocusLost
         // TODO add your handling code here:
@@ -742,9 +833,10 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

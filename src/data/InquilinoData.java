@@ -81,7 +81,7 @@ public class InquilinoData {
             }
             ps.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al conseguir lista de INquilinos" + ex);
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de INquilinos" + ex.getMessage());
         }
 
         return inquilinoList;

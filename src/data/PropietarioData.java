@@ -71,4 +71,25 @@ public class PropietarioData {
         return propietarioList;
     }
 
+    public Propietario obtenerPropietariosXDni(Long dni) {
+        Propietario propietario = new Propietario();
+        try {
+            propietario.setPersona(personaData.obtenerPersonaXDni(dni));
+            if (propietario.getPersona().getNombre() != null) {                
+                String querySql = "SELECT * FROM propietario  WHERE id_persona=?";
+                PreparedStatement ps = conexion.prepareStatement(querySql);
+                ps.setLong(1, propietario.getPersona().getId());
+                ResultSet result = ps.executeQuery();
+                while (result.next()) {
+                    propietario.setId(result.getInt("id_propietario"));                    
+                }
+                ps.close();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el propietario DNI: "+dni+"\n" + e.getMessage());
+        }
+
+        return propietario;
+    }
 }

@@ -105,8 +105,8 @@ public class InquilinoData {
                 ps.close();
             }
 
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al conseguir lista de Inquilinos" + ex);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el inquilino DNI: "+dni+"\n" + e.getMessage());
         }
         return inquilino;
     }

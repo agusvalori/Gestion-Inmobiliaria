@@ -584,6 +584,35 @@ propietarioData = new PropietarioData(conexion);
 
     private void txfDniActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txfDniActionPerformed
         // TODO add your handling code here:
+         try {
+                        if (txfDni.getText().isBlank()) {
+                                JOptionPane.showMessageDialog(null, "Ingrese un numero de dni", "Dni invalido",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                btnBorrar.setEnabled(false);
+                                btnEditar.setEnabled(false);
+                                btnSalir.setEnabled(true);
+                                btnLimpiar.setEnabled(true);
+                                btnGuardar.setEnabled(true);
+
+                        } else {
+                                propietario = propietarioData.obtenerPropietariosXDni(Long.parseLong(txfDni.getText()));
+                                if (propietario.getPersona().getNombre()!= null) {
+                                        obtenerDatosPropietarios();
+                                } else {
+                                        String dni = txfDni.getText();
+                                        limpiarDatosPersonas(true);
+                                        txfDni.setText(dni);
+                                }
+                                txfNombre.setFocusable(true);
+                                btnLimpiar.setEnabled(true);
+                        }
+
+                } catch (Exception e) {
+                        // TODO: handle exception
+                        JOptionPane.showMessageDialog(null, "El dni ingresado es invalido \n" + e.getMessage(),
+                                        "Dni invalido",
+                                        JOptionPane.WARNING_MESSAGE);
+                }
     }// GEN-LAST:event_txfDniActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarActionPerformed

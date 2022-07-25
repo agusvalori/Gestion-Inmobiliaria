@@ -135,6 +135,7 @@ public class PersonaData {
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println("Error al obtener la persona desde la base de datos: \n" + e.getMessage());
+            persona = null;
         }
         return persona;
     }

@@ -133,5 +133,11 @@ public class Persona {
     public void setCalificacionEmpleado(String calificacionEmpleado) {
         this.calificacionEmpleado = calificacionEmpleado;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "ID: "+getId()+" Nombre: "+getNombre() +" Apellido: "+getApellido();
+    }
     
 }

@@ -139,10 +139,10 @@ public class PersonaData {
         return persona;
     }
 
-    public Boolean editarPersona(Persona persona) {
+    public Boolean editarPersona(Persona persona) {        
         Boolean result = false;
-        try {
-            String querySql = "UPDATE persona SET nombre=?, apellido=?, dni=?, cuit=?, email=?, telefono=?,estado=?,calificacion_inquilino=?,calificacion_propietario=? ,calificacion_garante=? ,calificacion_empleado=?  WHERE id_persona=?";
+        try {            
+            String querySql = "UPDATE persona SET nombre=?, apellido=?, dni=?, cuit=?, email=?, telefono=?,estado=?,calificacion_inquilino=?,calificacion_propietario=? ,calificacion_garante=? ,calificacion_empleado=?  WHERE id_persona=?";            
             PreparedStatement ps = conn.prepareStatement(querySql);
             ps.setString(1, persona.getNombre());
             ps.setString(2, persona.getApellido());
@@ -155,15 +155,15 @@ public class PersonaData {
             ps.setString(9, persona.getCalificacionPropietario());
             ps.setString(10, persona.getCalificacionGarante());
             ps.setString(11, persona.getCalificacionEmpleado());
-            ps.setInt(8, persona.getId());
-            if (ps.executeUpdate() != 0) {
+            ps.setInt(12, persona.getId());                   
+            if (ps.executeUpdate()!= 0) {
                 System.out.println("La persona fue modificada con exito");
                 result = true;
             }
 
         } catch (Exception e) {
             // TODO: handle exception
-            System.out.println("Error al actualizar la persona desde la base de datos: \n" + e.getMessage());
+            System.out.println("Error al editar los datos de la persona: \n" + e.getMessage());
         }
         return result;
 

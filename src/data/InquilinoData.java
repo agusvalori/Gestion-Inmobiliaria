@@ -35,9 +35,11 @@ public class InquilinoData {
         Boolean result = false;
         if (personaData.agregarPersona(inquilino.getPersona())) {
             try {
-                String querySql = "INSERT INTO inquilino(id_persona) VALUES (?)";
+                String querySql = "INSERT INTO inquilino(id_persona,condicion,cant_renovacion) VALUES (?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(querySql, RETURN_GENERATED_KEYS);
                 ps.setInt(1, inquilino.getPersona().getId());
+                ps.setString(2, inquilino.getCondicion());
+                ps.setInt(3, inquilino.getCantRenovaciones());
                 ps.executeUpdate();
                 ResultSet resultSet = ps.getGeneratedKeys();
 
@@ -107,6 +109,56 @@ public class InquilinoData {
             JOptionPane.showMessageDialog(null, "Error al conseguir lista de Inquilinos" + ex);
         }
         return inquilino;
+    }
+
+    public Boolean editarInquilino(Inquilino inquilino) {        
+        Boolean result = false;
+        try {            
+            if (personaData.editarPersona(inquilino.getPersona())) {                
+                String querySql = "UPDATE inquilino SET condicion=?, cant_renovacion=?  WHERE id_inquilino=?";
+                PreparedStatement ps = conn.prepareStatement(querySql);
+                ps.setString(1, inquilino.getCondicion());
+                ps.setInt(2, inquilino.getCantRenovaciones());
+                ps.setInt(3, inquilino.getId());
+                if (ps.executeUpdate() != 0) {
+                    result = true;
+                    JOptionPane.showMessageDialog(null, "El Inquilino fue editado con exito");
+                }
+                ps.close();
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al editar el Inquilino: " + ex);
+        }
+        return result;
+    }
+
+    public Boolean asociarInquilinoAPersona(Inquilino inquilino) {        
+        Boolean result = false;
+        try {
+            String querySql = "INSERT INTO inquilino (id_persona,condicion,cant_renovacion) VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(querySql, RETURN_GENERATED_KEYS);
+            ps.setInt(1, inquilino.getPersona().getId());
+            ps.setString(2, inquilino.getCondicion());
+            ps.setInt(3, inquilino.getCantRenovaciones());
+            ps.executeUpdate();
+            ResultSet resultSet = ps.getGeneratedKeys();
+
+            if (resultSet.next()) {
+                inquilino.setId(resultSet.getInt(1));
+                result = true;
+            }
+            ps.close();
+            JOptionPane.showMessageDialog(null,
+                    "Inquilino dni:" + inquilino.getPersona().getDni() + " agregado con exito\n",
+                    "Inquilino agregado con exito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    " No se pudo agregar el inquilino\n" + e.getMessage(),
+                    "Error al agregar el inquilino", JOptionPane.ERROR_MESSAGE);
+        }
+        return result;
+
     }
 
     public Boolean eliminarInquilino(Integer id) {

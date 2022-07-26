@@ -60,9 +60,9 @@ public class AppMenu extends javax.swing.JFrame {
     }
 
     public void cargarTablaPropietarios() {
-        DefaultTableModel tableModel = (DefaultTableModel) tablePropietarios.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) tablaPropietarios.getModel();
         // Limpiamos la tabla
-        int filas = tablePropietarios.getRowCount();
+        int filas = tablaPropietarios.getRowCount();
         for (int i = 0; filas > i; i++) {
             tableModel.removeRow(0);
         }
@@ -105,9 +105,9 @@ public class AppMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tablePropietarios = new javax.swing.JTable();
         btnAgregarPropietario = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaPropietarios = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -123,7 +123,7 @@ public class AppMenu extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Inicio", jPanel1);
@@ -133,10 +133,21 @@ public class AppMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "CIUDAD", "DIRECCION", "ZONA", "PROPIETARIO", "VER"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tablaInmobiliaria);
+        if (tablaInmobiliaria.getColumnModel().getColumnCount() > 0) {
+            tablaInmobiliaria.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jButton1.setText("Agregar Inmobiliaria");
 
@@ -160,7 +171,7 @@ public class AppMenu extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -224,7 +235,7 @@ public class AppMenu extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(btnAgregarInquilinos)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -238,7 +249,7 @@ public class AppMenu extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Contratos", jPanel3);
@@ -251,13 +262,19 @@ public class AppMenu extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Empleados", jPanel4);
 
-        tablePropietarios.setBackground(new java.awt.Color(240, 240, 240));
-        tablePropietarios.setModel(new javax.swing.table.DefaultTableModel(
+        btnAgregarPropietario.setText("Agregar Propietarios");
+        btnAgregarPropietario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPropietarioActionPerformed(evt);
+            }
+        });
+
+        tablaPropietarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -273,23 +290,10 @@ public class AppMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablePropietarios.setPreferredSize(new java.awt.Dimension(370, 20));
-        tablePropietarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablePropietariosMouseClicked(evt);
-            }
-        });
-        jScrollPane4.setViewportView(tablePropietarios);
-        if (tablePropietarios.getColumnModel().getColumnCount() > 0) {
-            tablePropietarios.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane3.setViewportView(tablaPropietarios);
+        if (tablaPropietarios.getColumnModel().getColumnCount() > 0) {
+            tablaPropietarios.getColumnModel().getColumn(4).setResizable(false);
         }
-
-        btnAgregarPropietario.setText("Agregar Propietarios");
-        btnAgregarPropietario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarPropietarioActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -298,11 +302,11 @@ public class AppMenu extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 351, Short.MAX_VALUE)
                         .addComponent(btnAgregarPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 351, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -311,7 +315,7 @@ public class AppMenu extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(btnAgregarPropietario)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -343,19 +347,6 @@ public class AppMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tablePropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePropietariosMouseClicked
-        // TODO add your handling code here:
-        javax.swing.JTable tableSource = (javax.swing.JTable) evt.getSource();
-        int fila = tableSource.rowAtPoint(evt.getPoint());
-        int columna = tableSource.columnAtPoint(evt.getPoint());
-        if (columna == tableSource.getColumnModel().getColumnCount() - 1) {
-            PropietarioDialogView propietarioView = new PropietarioDialogView(this, true, conexion,
-                    propietarioData.obtenerPropietarios().get(fila));                    
-            propietarioView.setVisible(true);
-            cargarTablaInquilinos();
-        }
-    }//GEN-LAST:event_tablePropietariosMouseClicked
-
     private void tablaInquilinosKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_tablaInquilinosKeyPressed
         // TODO add your handling code here:
 
@@ -386,6 +377,7 @@ public class AppMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         PropietarioDialogView propietarioView = new PropietarioDialogView(this, true, conexion);
         propietarioView.setVisible(true);
+        cargarTablaPropietarios();
     }// GEN-LAST:event_btnAgregarPropietarioActionPerformed
 
     /**
@@ -442,11 +434,11 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panelInquilinoTabs;
     private javax.swing.JTable tablaInmobiliaria;
     private javax.swing.JTable tablaInquilinos;
-    private javax.swing.JTable tablePropietarios;
+    private javax.swing.JTable tablaPropietarios;
     // End of variables declaration//GEN-END:variables
 }

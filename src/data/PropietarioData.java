@@ -27,7 +27,7 @@ public class PropietarioData {
         personaData = new PersonaData(conexion);
     }
 
-    public Boolean agregarPropietario(Propietario propietario) {
+    public Boolean agregarPropietarioYPersona(Propietario propietario) {
         Boolean result = false;
         if (personaData.agregarPersona(propietario.getPersona())) {
             try {
@@ -49,6 +49,30 @@ public class PropietarioData {
         }
 
         return result;
+    }
+
+    public Boolean agregarPropietario(Propietario propietario) {
+        Boolean result = false;
+
+        try {
+            String querySql = "INSERT INTO propietario(id_persona) VALUES (?)";
+            PreparedStatement ps = conexion.prepareStatement(querySql, RETURN_GENERATED_KEYS);
+            ps.setInt(1, propietario.getPersona().getId());
+            ps.executeQuery();
+            ResultSet resultSet = ps.getGeneratedKeys();
+            if (resultSet.next()) {
+                propietario.setId(resultSet.getInt(1));
+                result = true;
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "No se ah podido guardar el propietario\n" + e.getMessage(),
+                    "Error al guardar el propietario", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return result;
+
     }
 
     public ArrayList<Propietario> obtenerPropietarios() {
@@ -75,21 +99,34 @@ public class PropietarioData {
         Propietario propietario = new Propietario();
         try {
             propietario.setPersona(personaData.obtenerPersonaXDni(dni));
-            if (propietario.getPersona().getNombre() != null) {                
+            if (propietario.getPersona().getNombre() != null) {
                 String querySql = "SELECT * FROM propietario  WHERE id_persona=?";
                 PreparedStatement ps = conexion.prepareStatement(querySql);
                 ps.setLong(1, propietario.getPersona().getId());
                 ResultSet result = ps.executeQuery();
                 while (result.next()) {
-                    propietario.setId(result.getInt("id_propietario"));                    
+                    propietario.setId(result.getInt("id_propietario"));
                 }
                 ps.close();
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener el propietario DNI: "+dni+"\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener el propietario DNI: " + dni + "\n" + e.getMessage());
         }
 
         return propietario;
+    }
+
+    public Boolean editarPropietario(Propietario propietario) {
+        Boolean result = false;
+        try {
+            personaData.editarPersona(propietario.getPersona());
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null, "Error al actualizar el propietario DNI: " + propietario.getPersona().getDni() + "\n" + e.getMessage());
+        }
+
+        return result;
     }
 }

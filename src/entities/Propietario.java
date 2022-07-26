@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entities;
-
 /**
  *
  * @author agusv
@@ -34,6 +33,12 @@ public class Propietario {
     }
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "ID propietario: "+getId()+"\n"+persona.toString();
     }
     
 }

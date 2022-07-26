@@ -13,19 +13,21 @@ public class Persona {
     private String nombre;
     private String apellido;
     private Long dni;
-    private Long cuit=0L;
+    private Long cuit = 0L;
     private String email;
-    private Long telefono=0L;
-    private Boolean estado=true;
-    private String calificacionInquilino="Ninguna";
-    private String calificacionPropietario="Ninguna";
-    private String calificacionGarante="Ninguna";
-    private String calificacionEmpleado="Ninguna";
+    private Long telefono = 0L;
+    private Boolean estado = true;
+    private String calificacionInquilino = "Ninguna";
+    private String calificacionPropietario = "Ninguna";
+    private String calificacionGarante = "Ninguna";
+    private String calificacionEmpleado = "Ninguna";
 
     public Persona() {
     }
 
-    public Persona(Integer id, String nombre, String apellido, Long dni, String email, Boolean estado, String calificacionInquilino, String calificacionPropietario, String calificacionGarante, String calificacionEmpleado) {
+    public Persona(Integer id, String nombre, String apellido, Long dni, String email, Boolean estado,
+            String calificacionInquilino, String calificacionPropietario, String calificacionGarante,
+            String calificacionEmpleado) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -137,7 +139,8 @@ public class Persona {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "ID: "+getId()+" Nombre: "+getNombre() +" Apellido: "+getApellido();
+        return "ID: " + getId() + " Nombre: " + getNombre() + " Apellido: " + getApellido() 
+        + " Cuit: "+ getCuit()+" Email: "+getEmail()+" Telefono: "+getTelefono();
     }
-    
+
 }

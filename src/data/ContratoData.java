@@ -14,6 +14,11 @@ public class ContratoData {
 
     public Boolean inmuebleAlquilado(Inmueble inmueble) {
         Boolean result = false;
+        try {
+            String querySql = "SELECT * FROM contrato where id_inmueble=?";
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
         return result;
     }
     

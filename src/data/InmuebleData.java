@@ -4,15 +4,30 @@
  */
 package data;
 
+import java.sql.Connection;
+
 /**
  *
  * @author agusv
  */
 public class InmuebleData {
 
-    public InmuebleData(Conexion conn) {
+    private Connection conexion =null;
+    PersonaData personaData;
+
+    public InmuebleData(Conexion conexion) {
         super();
-        
+        this.conexion = conexion.getConexion();
+        personaData = new PersonaData(conexion);
     }
+
+
+    public Boolean agregarInmueble(){
+        Boolean result = false;
+
+        return result;
+    }
+
+
     
 }

@@ -569,8 +569,7 @@ public class PropietarioDialogView extends javax.swing.JDialog {
                 }
         }// GEN-LAST:event_txfDniActionPerformed
 
-        private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarActionPerformed
-                // TODO add your handling code here:
+        private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarActionPerformed                
                 if (validar()) {
                         if (propietario.getPersona().getId() == null) {
                                 int result = JOptionPane.showConfirmDialog(null,

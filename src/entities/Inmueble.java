@@ -18,8 +18,8 @@ public class Inmueble {
     private String localidad;
     private String provincia;
     private String caracteristicas;
-    private Long montoInicial;
-    private Boolean estado;
+    private Long montoInicial=0L;
+    private Boolean estado=true;
 
     public Inmueble() {
     }

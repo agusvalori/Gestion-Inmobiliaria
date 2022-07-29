@@ -95,23 +95,54 @@ public class PropietarioData {
         return propietarioList;
     }
 
+    public Propietario obtenerPropietariosXId(Integer id) {
+        Propietario propietario = new Propietario();
+        try {
+            String querySql = "SELECT * FROM propietario WHERE id_propietario=?";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setLong(1, id);
+            ResultSet result = ps.executeQuery();
+
+            while (result.next()) {
+                propietario.setId(result.getInt("id_propietario"));
+                propietario.setPersona(personaData.obtenerPersonaXId(result.getInt("id_persona")));
+            }
+
+            ps.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el propietario ID: " + id + "\n" + e.getMessage());
+            propietario = null;
+        }
+
+        return propietario;
+    }
+
     public Propietario obtenerPropietariosXDni(Long dni) {
         Propietario propietario = new Propietario();
         try {
             propietario.setPersona(personaData.obtenerPersonaXDni(dni));
             if (propietario.getPersona().getNombre() != null) {
+                System.out.println("Se obtuvo con exito la persona");
                 String querySql = "SELECT * FROM propietario  WHERE id_persona=?";
                 PreparedStatement ps = conexion.prepareStatement(querySql);
                 ps.setLong(1, propietario.getPersona().getId());
                 ResultSet result = ps.executeQuery();
-                while (result.next()) {
+                if (result.next()) {
+                    System.out.println("Se obtuvo con exito el propietario");
                     propietario.setId(result.getInt("id_propietario"));
+
+                } else {
+                    propietario = null;
                 }
                 ps.close();
+            } else {
+                propietario = null;
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al obtener el propietario DNI: " + dni + "\n" + e.getMessage());
+            propietario = null;
         }
 
         return propietario;
@@ -124,7 +155,8 @@ public class PropietarioData {
 
         } catch (Exception e) {
             // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "Error al actualizar el propietario DNI: " + propietario.getPersona().getDni() + "\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar el propietario DNI: "
+                    + propietario.getPersona().getDni() + "\n" + e.getMessage());
         }
 
         return result;

@@ -162,8 +162,7 @@ public class PersonaData {
                 result = true;
             }
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (Exception e) {            
             System.out.println("Error al editar los datos de la persona: \n" + e.getMessage());
         }
         return result;

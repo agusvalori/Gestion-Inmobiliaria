@@ -87,7 +87,6 @@ public class InmuebleData {
             JOptionPane.showMessageDialog(null, "Error al conseguir lista de propietarios" + e.getMessage());
         }
         return inmuebleList;
-
     }
 
     public Boolean editarInmueble(Inmueble inmueble) {
@@ -116,6 +115,23 @@ public class InmuebleData {
             JOptionPane.showMessageDialog(null, "Error al actualizar el inmueble\n" + e.getMessage());
         }
 
+        return result;
+    }
+
+    public Boolean eliminarInmueble(Integer id) {
+        Boolean result = false;
+        try {
+            String querySql = "DELETE FROM inmueble WHERE id_inmueble=?";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 0) {
+                System.out.println("El inmueble fue eliminada con exito");
+                result = true;
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error al eliminar el inmueble desde la base de datos: \n" + e.getMessage());
+        }
         return result;
     }
 

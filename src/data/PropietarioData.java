@@ -19,7 +19,7 @@ import entities.Propietario;
 public class PropietarioData {
 
     private Connection conexion = null;
-    PersonaData personaData;
+    private PersonaData personaData;
 
     public PropietarioData(Conexion conexion) {
         super();

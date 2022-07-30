@@ -320,6 +320,11 @@ public class AppMenu extends javax.swing.JFrame {
         }
 
         btnAgregarEmpleados.setText("Agregar Empleados");
+        btnAgregarEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEmpleadosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -438,6 +443,8 @@ public class AppMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tablaInmueblesMouseClicked
 
+    
+
 
     private void tablaInquilinosMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablaInquilinosMouseClicked
         // TODO add your handling code here:
@@ -452,9 +459,14 @@ public class AppMenu extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_tablaInquilinosMouseClicked
 
+    private void btnAgregarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpleadosActionPerformed
+        EmpleadoDialogView empleadoDialogView  = new EmpleadoDialogView(this, true, conexion);
+        empleadoDialogView.setVisible(true);
+        
+    }//GEN-LAST:event_btnAgregarEmpleadosActionPerformed
 
-    private void btnAgregarInmuebleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarInmuebleActionPerformed
-        // TODO add your handling code here:
+
+    private void btnAgregarInmuebleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarInmuebleActionPerformed        
         InmuebleDialogView inquilinoView = new InmuebleDialogView(this, true, conexion);
         inquilinoView.setVisible(true);
         cargarTablaInmuebles();

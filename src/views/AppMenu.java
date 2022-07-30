@@ -136,7 +136,7 @@ public class AppMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaEmpleados = new javax.swing.JTable();
         btnAgregarEmpleados = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnAgregarPropietario = new javax.swing.JButton();
@@ -293,7 +293,7 @@ public class AppMenu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Contratos", jPanel3);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -309,14 +309,14 @@ public class AppMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jScrollPane4.setViewportView(tablaEmpleados);
+        if (tablaEmpleados.getColumnModel().getColumnCount() > 0) {
+            tablaEmpleados.getColumnModel().getColumn(0).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(1).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(2).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(3).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(4).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(5).setResizable(false);
         }
 
         btnAgregarEmpleados.setText("Agregar Empleados");
@@ -533,8 +533,8 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelInquilinoTabs;
+    private javax.swing.JTable tablaEmpleados;
     private javax.swing.JTable tablaInmuebles;
     private javax.swing.JTable tablaInquilinos;
     private javax.swing.JTable tablaPropietarios;

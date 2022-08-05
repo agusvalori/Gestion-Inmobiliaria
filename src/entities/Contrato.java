@@ -14,6 +14,7 @@ public class Contrato {
     private Garante garante;
     private Date fechaInicio;
     private Date fechaFin;
+    private Integer duracionMeses;
     private Double montoInicial;
     private Integer aumentosPorcentaje;
     private Integer aumentosPeriodos;
@@ -22,13 +23,14 @@ public class Contrato {
     public Contrato() {
     }
 
-    public Contrato(Integer id, Inquilino inquilino, Inmueble inmueble, Garante garante, Date fechaInicio, Date fechaFin, Double montoInicial, Integer aumentosPorcentaje, Integer aumentosPeriodos, Boolean estado) {
+    public Contrato(Integer id, Inquilino inquilino, Inmueble inmueble, Garante garante, Date fechaInicio, Date fechaFin,Integer duracionMeses, Double montoInicial, Integer aumentosPorcentaje, Integer aumentosPeriodos, Boolean estado) {
         this.id = id;
         this.inquilino = inquilino;
         this.inmueble = inmueble;
         this.garante = garante;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.duracionMeses = duracionMeses;
         this.montoInicial = montoInicial;
         this.aumentosPorcentaje = aumentosPorcentaje;
         this.aumentosPeriodos = aumentosPeriodos;
@@ -57,6 +59,10 @@ public class Contrato {
 
     public Date getFechaFin() {
         return fechaFin;
+    }
+
+    public Integer getDuracionMeses() {
+        return duracionMeses;
     }
 
     public Double getMontoInicial() {
@@ -97,6 +103,10 @@ public class Contrato {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public void setDuracionMeses(Integer duracionMeses) {
+        this.duracionMeses = duracionMeses;
     }
 
     public void setMontoInicial(Double montoInicial) {

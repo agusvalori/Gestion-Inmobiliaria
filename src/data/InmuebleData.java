@@ -89,6 +89,38 @@ public class InmuebleData {
         return inmuebleList;
     }
 
+
+    public ArrayList<Inmueble> buscarInmueblesXPropietario(Integer id){
+        ArrayList<Inmueble> inmuebleList = new ArrayList<>();
+
+        try {
+            String querySql = "SELECT * FROM inmueble WHERE id_propietario=? ";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Inmueble inmueble = new Inmueble();
+                inmueble.setId(resultSet.getInt("id_inmueble"));
+                // id_propietario,tipo_inmueble,estado_inmueble,zona,direccion,localidad,provincia,caracteristicas,monto_inicial,estado
+                inmueble.setPropietario(propietarioData.obtenerPropietariosXId(resultSet.getInt("id_propietario")));
+                inmueble.setTipoInmueble(resultSet.getString("tipo_inmueble"));
+                inmueble.setEstadoInmueble(resultSet.getString("estado_inmueble"));
+                inmueble.setZona(resultSet.getString("zona"));
+                inmueble.setDireccion(resultSet.getString("direccion"));
+                inmueble.setLocalidad(resultSet.getString("localidad"));
+                inmueble.setProvincia(resultSet.getString("provincia"));
+                inmueble.setCaracteristicas(resultSet.getString("caracteristicas"));
+                inmueble.setMontoInicial(Long.parseLong(resultSet.getString("monto_inicial")));
+                inmueble.setEstado(resultSet.getBoolean("estado"));
+                inmuebleList.add(inmueble);
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de propietarios" + e.getMessage());
+        }
+        return inmuebleList;
+    }
     public Boolean editarInmueble(Inmueble inmueble) {
         Boolean result = false;
         try {

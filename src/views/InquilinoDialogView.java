@@ -45,56 +45,61 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
         private void obtenerDatosInquilino() {
 
-                if (inquilino.getId() != null) {
-                        txfId.setText(String.valueOf(inquilino.getId()));
-                } else {
-                        txfId.setText("");
+                try {
+                        if (inquilino.getId() != null) {
+                                txfId.setText(String.valueOf(inquilino.getId()));
+                        } else {
+                                txfId.setText("");
+                        }
+
+                        txfDni.setText(String.valueOf(inquilino.getPersona().getDni()));
+                        txfNombre.setEnabled(true);
+                        txfNombre.setText(inquilino.getPersona().getNombre());
+
+                        txfApellido.setEnabled(true);
+                        txfApellido.setText(inquilino.getPersona().getApellido());
+
+                        txfCuit.setEnabled(true);
+                        txfCuit.setText(String.valueOf(inquilino.getPersona().getCuit()));
+
+                        txfEmail.setEnabled(true);
+                        txfEmail.setText(inquilino.getPersona().getEmail());
+
+                        txfTelefono.setEnabled(true);
+                        txfTelefono.setText(String.valueOf(inquilino.getPersona().getTelefono()));
+
+                        selectCondicion.setEnabled(true);
+
+                        if (inquilino.getCondicion() != null) {
+                                selectCondicion.setSelectedItem("Renovante");
+                                pnlCantRenevaciones.setEnabled(true);
+                                txfCantRenovaciones.setText(String.valueOf(inquilino.getCantRenovaciones()));
+                        } else {
+                                selectCondicion.setSelectedItem("Nuevo");
+                                pnlCantRenevaciones.setEnabled(false);
+                        }
+
+                        selectCalificacionInquilino.setEnabled(true);
+                        selectCalificacionInquilino.setSelectedItem(inquilino.getPersona().getCalificacionInquilino());
+
+                        selectCalificacionPropietario.setEnabled(true);
+                        selectCalificacionPropietario
+                                        .setSelectedItem(inquilino.getPersona().getCalificacionPropietario());
+
+                        selectCalificacionGarante.setEnabled(true);
+                        selectCalificacionGarante.setSelectedItem(inquilino.getPersona().getCalificacionGarante());
+
+                        selectCalificacionEmpleado.setEnabled(true);
+                        selectCalificacionEmpleado.setSelectedItem(inquilino.getPersona().getCalificacionEmpleado());
+
+                        btnBorrar.setEnabled(true);
+                        btnSalir.setEnabled(true);
+                        btnLimpiar.setEnabled(true);
+                        btnGuardar.setEnabled(true);
+                } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null,
+                                        "Error al obtener los datos del inquilino:\n" + e.getMessage());
                 }
-
-                txfDni.setText(String.valueOf(inquilino.getPersona().getDni()));
-                txfNombre.setEnabled(true);
-                txfNombre.setText(inquilino.getPersona().getNombre());
-
-                txfApellido.setEnabled(true);
-                txfApellido.setText(inquilino.getPersona().getApellido());
-
-                txfCuit.setEnabled(true);
-                txfCuit.setText(String.valueOf(inquilino.getPersona().getCuit()));
-
-                txfEmail.setEnabled(true);
-                txfEmail.setText(inquilino.getPersona().getEmail());
-
-                txfTelefono.setEnabled(true);
-                txfTelefono.setText(String.valueOf(inquilino.getPersona().getTelefono()));
-
-                selectCondicion.setEnabled(true);
-
-                if (inquilino.getCondicion() != null) {
-                        selectCondicion.setSelectedItem("Renovante");
-                        pnlCantRenevaciones.setEnabled(true);
-                        txfCantRenovaciones.setText(String.valueOf(inquilino.getCantRenovaciones()));
-                } else {
-                        selectCondicion.setSelectedItem("Nuevo");
-                        pnlCantRenevaciones.setEnabled(false);
-                }
-
-                selectCalificacionInquilino.setEnabled(true);
-                selectCalificacionInquilino.setSelectedItem(inquilino.getPersona().getCalificacionInquilino());
-
-                selectCalificacionPropietario.setEnabled(true);
-                selectCalificacionPropietario.setSelectedItem(inquilino.getPersona().getCalificacionPropietario());
-
-                selectCalificacionGarante.setEnabled(true);
-                selectCalificacionGarante.setSelectedItem(inquilino.getPersona().getCalificacionGarante());
-
-                selectCalificacionEmpleado.setEnabled(true);
-                selectCalificacionEmpleado.setSelectedItem(inquilino.getPersona().getCalificacionEmpleado());
-
-                btnBorrar.setEnabled(true);
-                btnEditar.setEnabled(true);
-                btnSalir.setEnabled(true);
-                btnLimpiar.setEnabled(true);
-                btnGuardar.setEnabled(false);
         }
 
         private void limpiarDatosPersonas(Boolean state) {
@@ -129,7 +134,6 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                 pnlCantRenevaciones.setVisible(false);
 
                 btnBorrar.setEnabled(false);
-                btnEditar.setEnabled(false);
                 btnSalir.setEnabled(true);
                 btnLimpiar.setEnabled(false);
                 btnGuardar.setEnabled(true);
@@ -139,6 +143,11 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                 String result = "";
                 try {
                         Persona persona = new Persona();
+
+                        // Si editamos obtenemos el id de la persona
+                        if (inquilino.getPersona() != null) {
+                                persona.setId(inquilino.getPersona().getId());
+                        }
 
                         if (txfNombre.getText().isBlank()) {
                                 result += "Nombre: Vacio\n";
@@ -163,9 +172,7 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                                 }
                         }
 
-                        if (txfCuit.getText().isBlank()) {
-                                result += "Cuit: Vacio\n";
-                        } else {
+                        if (!txfCuit.getText().isBlank()) {
                                 try {
                                         persona.setCuit(Long.parseLong(txfCuit.getText()));
                                 } catch (Exception e) {
@@ -179,8 +186,7 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                         if (!txfTelefono.getText().isBlank()) {
                                 try {
                                         persona.setTelefono(Long.parseLong(txfTelefono.getText()));
-                                } catch (Exception e) {
-                                        // TODO: handle exception
+                                } catch (Exception e) {                                        
                                         result += "Telefono: Debe ser un numero\n";
                                 }
                         }
@@ -194,8 +200,8 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
                         inquilino.setCondicion(selectCondicion.getSelectedItem().toString());
 
-                        if (result.isEmpty() || result.isBlank()) {
-                                persona.setId(inquilino.getPersona().getId());
+
+                        if (result.isEmpty() || result.isBlank()) {                                
                                 inquilino.setPersona(persona);
                                 return true;
                         } else {
@@ -221,6 +227,7 @@ public class InquilinoDialogView extends javax.swing.JDialog {
          * regenerated by the Form Editor.
          */
         @SuppressWarnings("unchecked")
+        // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
@@ -270,7 +277,6 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                 btnSalir = new javax.swing.JButton();
                 btnBorrar = new javax.swing.JButton();
                 btnLimpiar = new javax.swing.JButton();
-                btnEditar = new javax.swing.JButton();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -288,24 +294,20 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
                 jLabel13.setText("Calificacion de la persona");
 
-                selectCalificacionInquilino.setModel(
-                                new javax.swing.DefaultComboBoxModel<>(
-                                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
+                selectCalificacionInquilino.setModel(new javax.swing.DefaultComboBoxModel<>(
+                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
                 selectCalificacionInquilino.setEnabled(false);
 
-                selectCalificacionPropietario.setModel(
-                                new javax.swing.DefaultComboBoxModel<>(
-                                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
+                selectCalificacionPropietario.setModel(new javax.swing.DefaultComboBoxModel<>(
+                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
                 selectCalificacionPropietario.setEnabled(false);
 
-                selectCalificacionGarante.setModel(
-                                new javax.swing.DefaultComboBoxModel<>(
-                                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
+                selectCalificacionGarante.setModel(new javax.swing.DefaultComboBoxModel<>(
+                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
                 selectCalificacionGarante.setEnabled(false);
 
-                selectCalificacionEmpleado.setModel(
-                                new javax.swing.DefaultComboBoxModel<>(
-                                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
+                selectCalificacionEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(
+                                new String[] { "Excelente", "Buena", "Mala", "Ninguna" }));
                 selectCalificacionEmpleado.setEnabled(false);
 
                 jLabel14.setText("Empleado:");
@@ -329,10 +331,9 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                                                                                 .addComponent(jLabel10))
                                                                 .addPreferredGap(
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addGroup(jPanel4Layout
-                                                                                .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING,
-                                                                                                false)
+                                                                .addGroup(jPanel4Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                                false)
                                                                                 .addComponent(selectCalificacionEmpleado,
                                                                                                 0, 130, Short.MAX_VALUE)
                                                                                 .addComponent(selectCalificacionGarante,
@@ -425,9 +426,8 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                                 pnlCantRenevacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(pnlCantRenevacionesLayout.createSequentialGroup()
                                                                 .addContainerGap()
-                                                                .addGroup(pnlCantRenevacionesLayout
-                                                                                .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                .addGroup(pnlCantRenevacionesLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.BASELINE)
                                                                                 .addComponent(txfCantRenovaciones,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 30,
@@ -456,8 +456,7 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE))
                                                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                jPanel3Layout
-                                                                                                                .createSequentialGroup()
+                                                                                                jPanel3Layout.createSequentialGroup()
                                                                                                                 .addComponent(pnlCantRenevaciones,
                                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -688,27 +687,14 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                         }
                 });
 
-                btnEditar.setText("Editar");
-                btnEditar.setEnabled(false);
-                btnEditar.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                btnEditarActionPerformed(evt);
-                        }
-                });
-
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                 jPanel1.setLayout(jPanel1Layout);
                 jPanel1Layout.setHorizontalGroup(
                                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addContainerGap()
+                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
                                                                 .addComponent(btnGuardar,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                73,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(btnEditar,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 73,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -743,8 +729,7 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                                                                                 .addComponent(btnGuardar)
                                                                                 .addComponent(btnSalir)
                                                                                 .addComponent(btnBorrar)
-                                                                                .addComponent(btnLimpiar)
-                                                                                .addComponent(btnEditar))
+                                                                                .addComponent(btnLimpiar))
                                                                 .addContainerGap()));
 
                 javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -752,35 +737,41 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                 jPanel5Layout.setHorizontalGroup(
                                 jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(jPanel5Layout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(jPanel2,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(jPanel3,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout
-                                                                .createSequentialGroup()
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)
-                                                                .addComponent(jPanel1,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(37, 37, 37)));
+                                                                .addGroup(jPanel5Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(jPanel5Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addContainerGap()
+                                                                                                .addComponent(jPanel2,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(18, 18, 18)
+                                                                                                .addComponent(jPanel3,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(jPanel5Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addContainerGap(
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addComponent(jPanel1,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE)))
+                                                                .addContainerGap()));
                 jPanel5Layout.setVerticalGroup(
                                 jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(jPanel5Layout.createSequentialGroup()
                                                                 .addContainerGap()
-                                                                .addGroup(jPanel5Layout
-                                                                                .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING,
-                                                                                                false)
+                                                                .addGroup(jPanel5Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                                false)
                                                                                 .addComponent(jPanel2,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -831,37 +822,37 @@ public class InquilinoDialogView extends javax.swing.JDialog {
                 }
         }// GEN-LAST:event_selectCondicionItemStateChanged
 
-        private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
-                // TODO add your handling code here:
-                if (validar() != null) {
-                        if (txfId.getText().isBlank()) {
-                                inquilinoData.asociarInquilinoAPersona(inquilino);
-                        } else {
-                                inquilinoData.editarInquilino(inquilino);
-                        }
-                } else {
-                        JOptionPane.showMessageDialog(null, "Validacion incorrecta");
-                }
-
-        }// GEN-LAST:event_btnEditarActionPerformed
-
         private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarActionPerformed
-                // TODO add your handling code here:
                 if (validar() != null) {
-                        if (inquilinoData.agregarInquilino(inquilino)) {
-                                txfId.setText(String.valueOf(inquilino.getId()));
+                        if (inquilino.getId() != null) {
+                                // Actualizamos el empleado y la persona
+                                int result = JOptionPane.showConfirmDialog(null,
+                                                "Esta seguro que desea editar el inquilino: ", "Editar inquilino",
+                                                JOptionPane.YES_NO_OPTION);
+                                if (result == 0) {
+                                        inquilinoData.editarInquilino(inquilino);
+                                }
+
+                        } else {
+                                int result = JOptionPane.showConfirmDialog(null,
+                                                "Esta seguro que desea agregar el inquilino: ", "Agregar inquilino",
+                                                JOptionPane.YES_NO_OPTION);
+                                if (result == 0) {
+                                        if (inquilinoData.agregarInquilino(inquilino)) {
+                                                dispose();
+                                        }
+                                }
+
                         }
                 }
 
         }// GEN-LAST:event_btnGuardarActionPerformed
 
         private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-                // TODO add your handling code here:
                 dispose();
         }// GEN-LAST:event_jButton2ActionPerformed
 
         private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLimpiarActionPerformed
-                // TODO add your handling code here:
                 limpiarDatosPersonas(false);
         }// GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -881,36 +872,35 @@ public class InquilinoDialogView extends javax.swing.JDialog {
         }// GEN-LAST:event_btnBorrarActionPerformed
 
         private void txfDniActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txfDniActionPerformed
-                // TODO add your handling code here:
-                try {
-                        if (txfDni.getText().isBlank()) {
-                                JOptionPane.showMessageDialog(null, "Ingrese un numero de dni", "Dni invalido",
-                                                JOptionPane.INFORMATION_MESSAGE);
-                                btnBorrar.setEnabled(false);
-                                btnEditar.setEnabled(false);
-                                btnSalir.setEnabled(true);
-                                btnLimpiar.setEnabled(true);
-                                btnGuardar.setEnabled(true);
 
-                        } else {
+                if (txfDni.getText().isBlank()) {
+                        JOptionPane.showMessageDialog(null, "Ingrese un numero de dni", "Dni invalido",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                        btnBorrar.setEnabled(false);
+                        btnSalir.setEnabled(true);
+                        btnLimpiar.setEnabled(true);
+                        btnGuardar.setEnabled(true);
+                } else {
+                        try {
                                 inquilino = inquilinoData.obtenerInquilinosXDni(Long.parseLong(txfDni.getText()));
                                 if (inquilino.getPersona() != null) {
                                         obtenerDatosInquilino();
                                 } else {
+                                        inquilino = new Inquilino();
                                         String dni = txfDni.getText();
                                         limpiarDatosPersonas(true);
                                         txfDni.setText(dni);
                                 }
                                 txfNombre.setFocusable(true);
                                 btnLimpiar.setEnabled(true);
-                        }
+                        } catch (Exception e) {
 
-                } catch (Exception e) {
-                        // TODO: handle exception
-                        JOptionPane.showMessageDialog(null, "El dni ingresado es invalido \n" + e.getMessage(),
-                                        "Dni invalido",
-                                        JOptionPane.WARNING_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "El dni ingresado es invalido \n" + e.getMessage(),
+                                                "Dni invalido",
+                                                JOptionPane.WARNING_MESSAGE);
+                        }
                 }
+
         }// GEN-LAST:event_txfDniActionPerformed
 
         /**
@@ -970,7 +960,6 @@ public class InquilinoDialogView extends javax.swing.JDialog {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JButton btnBorrar;
-        private javax.swing.JButton btnEditar;
         private javax.swing.JButton btnGuardar;
         private javax.swing.JButton btnLimpiar;
         private javax.swing.JButton btnSalir;

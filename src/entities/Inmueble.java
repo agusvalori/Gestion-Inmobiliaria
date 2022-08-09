@@ -4,6 +4,8 @@
  */
 package entities;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author agusv
@@ -18,13 +20,20 @@ public class Inmueble {
     private String localidad;
     private String provincia;
     private String caracteristicas;
-    private Long montoInicial=0L;
-    private Boolean estado=true;
+    private Long montoInicial = 0L;
+    private Boolean estado = true;
+
+    // Valores predefinidos para comboBox o Select
+    private ArrayList<String> listTipoInmueble = new ArrayList<>();
+    private ArrayList<String> listEstadoInmueble = new ArrayList<>();
+    private ArrayList<String> listZonaInmueble = new ArrayList<>();    
 
     public Inmueble() {
     }
 
-    public Inmueble(Integer id, Propietario propietario, String tipoInmueble, String estadoInmueble, String zona, String direccion, String localidad, String provincia, String caracteristicas, Long montoInicial, Boolean estado) {
+    public Inmueble(Integer id, Propietario propietario, String tipoInmueble, String estadoInmueble, String zona,
+            String direccion, String localidad, String provincia, String caracteristicas, Long montoInicial,
+            Boolean estado) {
         this.id = id;
         this.propietario = propietario;
         this.tipoInmueble = tipoInmueble;
@@ -82,6 +91,7 @@ public class Inmueble {
         return estado;
     }
 
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -125,7 +135,43 @@ public class Inmueble {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
-    
-    
+
+    //################################
+
+    public ArrayList<String> getListTipoInmueble() {
+        listTipoInmueble.add("Casa");
+        listTipoInmueble.add("Departamento");
+        listTipoInmueble.add("Monoambiente");
+        listTipoInmueble.add("Local");
+        listTipoInmueble.add("Garage");
+        return listTipoInmueble;
+    }
+
+    public ArrayList<String> getListEstadoInmueble() {        
+        listEstadoInmueble.add("Nueva");
+        listEstadoInmueble.add("Reacondicionada Exelente");
+        listEstadoInmueble.add("Reacondicionada Buena");
+        listEstadoInmueble.add("Reacondicionada Mala");        
+        listEstadoInmueble.add("Precaria");        
+        return listEstadoInmueble;
+    }
+
+    public ArrayList<String> getListZonaInmueble() {
+        listZonaInmueble.add("Centro");
+        listZonaInmueble.add("La Ribera");
+        listZonaInmueble.add("Estacion");
+        listZonaInmueble.add("Jardin Del Sur");
+        listZonaInmueble.add("Att 2");
+        listZonaInmueble.add("1000 Viviendas");
+        listZonaInmueble.add("Eva peron 2");
+        listZonaInmueble.add("Las Miranda");
+        return listZonaInmueble;
+    }
+
+    @Override
+    public String toString() {        
+        return getDireccion();
+    }
+
+
 }

@@ -38,7 +38,7 @@ public class AppMenu extends javax.swing.JFrame {
         propietarioData = new PropietarioData(conexion);
         inmuebleData = new InmuebleData(conexion);
         empleadoData = new EmpleadoData(conexion);
-        cargarTablas();
+        cargarTablas();                
     }
 
     private void cargarTablas() {
@@ -168,7 +168,7 @@ public class AppMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablaContratos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnRealizarContrato = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaEmpleados = new javax.swing.JTable();
@@ -336,26 +336,32 @@ public class AppMenu extends javax.swing.JFrame {
             tablaContratos.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jButton1.setText("Realizar Contrato");
+        btnRealizarContrato.setText("Realizar Contrato");
+        btnRealizarContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarContratoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRealizarContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jButton1)
+                .addComponent(btnRealizarContrato)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -512,6 +518,8 @@ public class AppMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+
     private void tablaPropietariosMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablaPropietariosMouseClicked
         javax.swing.JTable tableSource = (javax.swing.JTable) evt.getSource();
         int fila = tableSource.rowAtPoint(evt.getPoint());
@@ -585,6 +593,12 @@ public class AppMenu extends javax.swing.JFrame {
         cargarTablas();
     }// GEN-LAST:event_btnAgregarPropietarioActionPerformed
 
+    private void btnRealizarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarContratoActionPerformed
+        ContratoDialogView contratoDialogView = new ContratoDialogView(this, true, conexion);
+        contratoDialogView.setVisible(true);
+        cargarTablas();
+    }//GEN-LAST:event_btnRealizarContratoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -629,7 +643,7 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarInmueble;
     private javax.swing.JButton btnAgregarInquilinos;
     private javax.swing.JButton btnAgregarPropietario;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRealizarContrato;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

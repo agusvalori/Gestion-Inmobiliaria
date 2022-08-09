@@ -89,8 +89,71 @@ public class InmuebleData {
         return inmuebleList;
     }
 
+    public Inmueble obtenerInmueblesXID(Integer id) {
+        Inmueble inmueble = new Inmueble();
+        try {
+            String querySql = "SELECT * FROM inmueble WHERE id_inmueble=?";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
 
-    public ArrayList<Inmueble> buscarInmueblesXPropietario(Integer id){
+            if (resultSet.next()) {
+                inmueble.setId(resultSet.getInt("id_inmueble"));
+                // id_propietario,tipo_inmueble,estado_inmueble,zona,direccion,localidad,provincia,caracteristicas,monto_inicial,estado
+                inmueble.setPropietario(propietarioData.obtenerPropietariosXId(resultSet.getInt("id_propietario")));
+                inmueble.setTipoInmueble(resultSet.getString("tipo_inmueble"));
+                inmueble.setEstadoInmueble(resultSet.getString("estado_inmueble"));
+                inmueble.setZona(resultSet.getString("zona"));
+                inmueble.setDireccion(resultSet.getString("direccion"));
+                inmueble.setLocalidad(resultSet.getString("localidad"));
+                inmueble.setProvincia(resultSet.getString("provincia"));
+                inmueble.setCaracteristicas(resultSet.getString("caracteristicas"));
+                inmueble.setMontoInicial(Long.parseLong(resultSet.getString("monto_inicial")));
+                inmueble.setEstado(resultSet.getBoolean("estado"));
+
+            } else {
+                inmueble = null;
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de propietarios" + e.getMessage());
+        }
+        return inmueble;
+    }
+
+    public ArrayList<Inmueble> obtenerInmueblesXTipoYZona(String tipo, String zona) {
+        ArrayList<Inmueble> inmuebleList = new ArrayList<>();
+        try {
+            String querySql = "SELECT * FROM inmueble WHERE tipo_inmueble=? AND zona=?";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setString(1, tipo);
+            ps.setString(2, zona);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Inmueble inmueble = new Inmueble();
+                inmueble.setId(resultSet.getInt("id_inmueble"));
+                // id_propietario,tipo_inmueble,estado_inmueble,zona,direccion,localidad,provincia,caracteristicas,monto_inicial,estado
+                inmueble.setPropietario(propietarioData.obtenerPropietariosXId(resultSet.getInt("id_propietario")));
+                inmueble.setTipoInmueble(resultSet.getString("tipo_inmueble"));
+                inmueble.setEstadoInmueble(resultSet.getString("estado_inmueble"));
+                inmueble.setZona(resultSet.getString("zona"));
+                inmueble.setDireccion(resultSet.getString("direccion"));
+                inmueble.setLocalidad(resultSet.getString("localidad"));
+                inmueble.setProvincia(resultSet.getString("provincia"));
+                inmueble.setCaracteristicas(resultSet.getString("caracteristicas"));
+                inmueble.setMontoInicial(Long.parseLong(resultSet.getString("monto_inicial")));
+                inmueble.setEstado(resultSet.getBoolean("estado"));
+                inmuebleList.add(inmueble);
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de propietarios" + e.getMessage());
+        }
+        return inmuebleList;
+    }
+
+    public ArrayList<Inmueble> buscarInmueblesXPropietario(Integer id) {
         ArrayList<Inmueble> inmuebleList = new ArrayList<>();
 
         try {
@@ -121,6 +184,7 @@ public class InmuebleData {
         }
         return inmuebleList;
     }
+
     public Boolean editarInmueble(Inmueble inmueble) {
         Boolean result = false;
         try {
@@ -137,7 +201,7 @@ public class InmuebleData {
             ps.setLong(9, inmueble.getMontoInicial());
             ps.setBoolean(10, inmueble.getEstado());
             ps.setInt(11, inmueble.getId());
-            if (ps.executeUpdate()!= 0) {
+            if (ps.executeUpdate() != 0) {
                 System.out.println("La persona fue modificada con exito");
                 result = true;
             }

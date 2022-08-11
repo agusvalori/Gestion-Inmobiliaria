@@ -54,6 +54,19 @@ public class ContratoDialogView extends javax.swing.JDialog {
         contratoData = new ContratoData(conexion);
         Inmueble inmueble = new Inmueble();
         limpiarInmueble();
+        limpiarContrato();
+    }
+
+    public ContratoDialogView(java.awt.Frame parent, boolean modal, Conexion conexion, Contrato contrato) {
+        super(parent, modal);
+        initComponents();
+        inmuebleData = new InmuebleData(conexion);
+        inquilinoData = new InquilinoData(conexion);
+        contratoData = new ContratoData(conexion);
+
+        this.contrato = contrato;                
+        obtenerContrato();
+        
     }
 
     private void obtenerInquilino() {
@@ -88,6 +101,20 @@ public class ContratoDialogView extends javax.swing.JDialog {
         selectInmuebleDireccion.setEnabled(false);
 
         habilitarContrato();
+    }
+
+    private void obtenerContrato() {
+
+        txfContratoId.setText(contrato.getId().toString());
+        Date date = new Date(contrato.getFechaInicio().toString());
+        dcContratoFechaInicio.setDate(date);      
+        txfContratoDuracion.setText(contrato.getDuracionMeses().toString());  
+        txfContratoAumento.setText(contrato.getAumentosPorcentaje().toString());
+        txfContratoAumentoPeriodo.setText(contrato.getAumentosPeriodos().toString());
+        txaContratoObservaciones.setText(contrato.getObservaciones());
+
+        obtenerInmueble();
+        obtenerInquilino();
     }
 
     private void limpiarInquilino() {
@@ -130,6 +157,19 @@ public class ContratoDialogView extends javax.swing.JDialog {
                 .toArray());
         selectInmuebleDireccion.setModel(modelComboBox);
 
+    }
+
+    private void limpiarContrato() {        
+
+        txfContratoId.setText("");
+        Date date = new Date();
+        dcContratoFechaInicio.setDate(date);
+        txfContratoDuracion.setText("");
+        txfContratoAumento.setText("");
+        txfContratoAumentoPeriodo.setText("");
+        txaContratoObservaciones.setText("");
+
+        habilitarContrato();        
     }
 
     private void habilitarContrato() {
@@ -537,6 +577,11 @@ public class ContratoDialogView extends javax.swing.JDialog {
         });
 
         btnLimpiarContrato.setText("Limpiar");
+        btnLimpiarContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarContratoActionPerformed(evt);
+            }
+        });
 
         btnBorrarContrato.setText("Borrar");
 
@@ -685,9 +730,18 @@ public class ContratoDialogView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLimpiarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarContratoActionPerformed
+        limpiarContrato();
+    }//GEN-LAST:event_btnLimpiarContratoActionPerformed
+
     private void btnLimpiarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLimpiarInquilinoActionPerformed
-        // TODO add your handling code here:
+        limpiarInquilino();
     }// GEN-LAST:event_btnLimpiarInquilinoActionPerformed
+
+    
+    private void btnLimpiarInmuebleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLimpiarInmuebleActionPerformed
+        limpiarInmueble();
+    }// GEN-LAST:event_btnLimpiarInmuebleActionPerformed
 
     private void btnGuardarContratoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGuardarContratoActionPerformed        
         
@@ -770,9 +824,6 @@ public class ContratoDialogView extends javax.swing.JDialog {
         obtenerInmueble();
     }// GEN-LAST:event_selectInmuebleDireccionActionPerformed
 
-    private void btnLimpiarInmuebleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLimpiarInmuebleActionPerformed
-        limpiarInmueble();
-    }// GEN-LAST:event_btnLimpiarInmuebleActionPerformed
 
     private void txfInquilinoDniActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txfInquilinoDniActionPerformed
         if (!txfInquilinoDni.getText().isBlank()) {

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -22,10 +23,14 @@ import entities.Inmueble;
 public class ContratoData {
 
     private Connection conexion = null;
+    private InquilinoData inquilinoData;
+    private InmuebleData inmuebleData;
 
     public ContratoData(Conexion conexion) {
         super();
         this.conexion = conexion.getConexion();
+        inquilinoData = new InquilinoData(conexion);
+        inmuebleData = new InmuebleData(conexion);
     }
 
     public Boolean agregarContrato(Contrato contrato) {
@@ -42,7 +47,7 @@ public class ContratoData {
             PreparedStatement ps = conexion.prepareStatement(querySql, RETURN_GENERATED_KEYS);
             ps.setInt(1, contrato.getInquilino().getId());
             ps.setInt(2, contrato.getInmueble().getId());
-            
+
             ps.setDate(3, Date.valueOf(contrato.getFechaInicio()));
             ps.setInt(4, contrato.getDuracionMeses());
             ps.setDouble(5, contrato.getMontoInicial());
@@ -67,6 +72,86 @@ public class ContratoData {
         }
 
         return result;
+    }
+
+    public ArrayList<Contrato> obtenerContratos() {
+        ArrayList<Contrato> contratoList = new ArrayList<>();
+
+        try {
+            String querySql = "SELECT * FROM contrato";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Contrato contrato = new Contrato();
+                contrato.setId(resultSet.getInt("id_contrato"));
+                contrato.setInquilino(inquilinoData.obtenerInquilinosXId(resultSet.getInt("id_inquilino")));
+                contrato.setInmueble(inmuebleData.obtenerInmueblesXID(resultSet.getInt("id_inmueble")));
+                // contrato.setGarante();
+                contrato.setFechaInicio(resultSet.getDate("fecha_inicio").toLocalDate());
+                contrato.setDuracionMeses(resultSet.getInt("duracion_meses"));
+                contrato.setMontoInicial(resultSet.getDouble("monto_inicial"));
+                contrato.setAumentosPorcentaje(resultSet.getInt("aumentos_porcentaje"));
+                contrato.setAumentosPeriodos(resultSet.getInt("aumentos_periodo"));
+                contrato.setObservaciones(resultSet.getString("observacion"));
+                // Obtenemos fecha fin con la fecha de inicio y la duracion
+                contrato.setFechaFin(contrato.getFechaInicio().plusMonths(contrato.getDuracionMeses()));
+
+                contratoList.add(contrato);
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de Contratos\n" + e.getMessage());
+        }
+
+        return contratoList;
+    }
+
+    public Contrato obtenerContratosXId(Integer id) {
+        Contrato contrato = new Contrato();
+
+        try {
+            String querySql = "SELECT * FROM contrato WHERE id_contrato=?";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                contrato.setId(resultSet.getInt("id_contrato"));
+                contrato.setInquilino(inquilinoData.obtenerInquilinosXId(resultSet.getInt("id_inquilino")));
+                contrato.setInmueble(inmuebleData.obtenerInmueblesXID(resultSet.getInt("id_inmueble")));
+                // contrato.setGarante();
+                contrato.setFechaInicio(resultSet.getDate("fecha_inicio").toLocalDate());
+                contrato.setDuracionMeses(resultSet.getInt("duracion_meses"));
+                contrato.setMontoInicial(resultSet.getDouble("monto_inicial"));
+                contrato.setAumentosPorcentaje(resultSet.getInt("aumentos_porcentaje"));
+                contrato.setAumentosPeriodos(resultSet.getInt("aumentos_periodo"));
+                contrato.setObservaciones(resultSet.getString("observacion"));
+                // Obtenemos fecha fin con la fecha de inicio y la duracion
+                contrato.setFechaFin(contrato.getFechaInicio().plusMonths(contrato.getDuracionMeses()));
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de Contratos\n" + e.getMessage());
+        }
+
+        return contrato;
+    }
+
+    public Boolean eliminarContrato(Integer id) {
+        Boolean result = false;
+        try {
+            String querySql = "DELETE FROM contrato WHERE id_contrato=?";
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 0) {                
+                result = true;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el contrato: "+e.getMessage(), "Error al eliminar el contrato", JOptionPane.WARNING_MESSAGE);
+        }
+        return result;
+        
     }
 
 }

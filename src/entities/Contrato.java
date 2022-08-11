@@ -8,7 +8,6 @@ package entities;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
 import javax.swing.JOptionPane;
 
 public class Contrato {
@@ -63,6 +62,7 @@ public class Contrato {
     }
 
     public LocalDate getFechaInicio() {
+        
         return fechaInicio;
     }
 
@@ -110,7 +110,7 @@ public class Contrato {
         this.garante = garante;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {        
         this.fechaInicio = fechaInicio;
     }
 

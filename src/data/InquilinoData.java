@@ -87,7 +87,7 @@ public class InquilinoData {
             }
             ps.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al conseguir lista de INquilinos" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de Inquilinos\n" + ex.getMessage());
         }
 
         return inquilinoList;
@@ -117,11 +117,31 @@ public class InquilinoData {
         return inquilino;
     }
 
+    public Inquilino obtenerInquilinosXId(Integer id) {
+        Inquilino inquilino = new Inquilino();
+        try {
+            String querySql = "SELECT * FROM inquilino  WHERE id_inquilino=?";
+            PreparedStatement ps = conn.prepareStatement(querySql);
+            ps.setLong(1, id);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                inquilino.setId(result.getInt("id_inquilino"));
+                inquilino.setPersona(personaData.obtenerPersonaXId(result.getInt("id_persona")));
+                inquilino.setCondicion(result.getString("condicion"));
+                inquilino.setCantRenovaciones(result.getInt("cant_renovacion"));
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el inquilino\n" + e.getMessage());
+        }
+        return inquilino;
+    }
+
     public Boolean editarInquilino(Inquilino inquilino) {
         Boolean result = false;
-        
-            if (personaData.editarPersona(inquilino.getPersona())) {
-                try {
+
+        if (personaData.editarPersona(inquilino.getPersona())) {
+            try {
                 String querySql = "UPDATE inquilino SET condicion=?, cant_renovacion=?  WHERE id_inquilino=?";
                 PreparedStatement ps = conn.prepareStatement(querySql);
                 ps.setString(1, inquilino.getCondicion());
@@ -132,8 +152,7 @@ public class InquilinoData {
                     JOptionPane.showMessageDialog(null, "El Inquilino fue editado con exito");
                 }
                 ps.close();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al editar el Inquilino: \n" + e.getMessage());
             }
         }

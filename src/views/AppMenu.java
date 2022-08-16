@@ -20,6 +20,7 @@ import entities.Empleado;
 import entities.Inmueble;
 import entities.Inquilino;
 import entities.Propietario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,6 +35,12 @@ public class AppMenu extends javax.swing.JFrame {
     private EmpleadoData empleadoData;
     private ContratoData contratoData;
 
+    // Cargamos nuevos datos a la tabla
+    ArrayList<Inmueble> inmuebleList = new ArrayList<>();
+    
+
+    
+
     private DefaultTableModel tableModel = new DefaultTableModel();
 
     public AppMenu() {
@@ -43,6 +50,8 @@ public class AppMenu extends javax.swing.JFrame {
         inmuebleData = new InmuebleData(conexion);
         empleadoData = new EmpleadoData(conexion);
         contratoData = new ContratoData(conexion);
+
+        inmuebleList = inmuebleData.obtenerInmuebles();
         cargarTablas();
     }
 
@@ -107,9 +116,7 @@ public class AppMenu extends javax.swing.JFrame {
             tableModel.removeRow(0);
         }
 
-        // Cargamos nuevos datos a la tabla
-        ArrayList<Inmueble> inmuebleList = new ArrayList<>();
-        inmuebleList = inmuebleData.obtenerInmuebles();
+        
         for (Inmueble inmuebleAux : inmuebleList) {
             tableModel
                     .insertRow(inmuebleList.indexOf(inmuebleAux), new Object[] {
@@ -192,12 +199,18 @@ public class AppMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrupInmueble = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaInmuebles = new javax.swing.JTable();
         btnAgregarInmueble = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        rbtnInmuebleTodos = new javax.swing.JRadioButton();
+        rbtnInmuebleAlquilados = new javax.swing.JRadioButton();
+        rbtnInmuebleLibres = new javax.swing.JRadioButton();
         panelInquilinoTabs = new javax.swing.JPanel();
         btnAgregarInquilinos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -267,6 +280,64 @@ public class AppMenu extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Mostrar");
+
+        btnGrupInmueble.add(rbtnInmuebleTodos);
+        rbtnInmuebleTodos.setSelected(true);
+        rbtnInmuebleTodos.setText("Todos");
+        rbtnInmuebleTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnInmuebleTodosActionPerformed(evt);
+            }
+        });
+
+        btnGrupInmueble.add(rbtnInmuebleAlquilados);
+        rbtnInmuebleAlquilados.setText("Alquilados");
+        rbtnInmuebleAlquilados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnInmuebleAlquiladosActionPerformed(evt);
+            }
+        });
+
+        btnGrupInmueble.add(rbtnInmuebleLibres);
+        rbtnInmuebleLibres.setText("Libres");
+        rbtnInmuebleLibres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnInmuebleLibresActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(85, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(211, 211, 211))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(rbtnInmuebleTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtnInmuebleAlquilados, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtnInmuebleLibres, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnInmuebleTodos)
+                    .addComponent(rbtnInmuebleAlquilados)
+                    .addComponent(rbtnInmuebleLibres))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -274,20 +345,28 @@ public class AppMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAgregarInmueble, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(143, 143, 143))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnAgregarInmueble, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(307, 307, 307))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(48, 48, 48)
                 .addComponent(btnAgregarInmueble)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -571,6 +650,22 @@ public class AppMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tablaContratosMouseClicked
 
+    private void rbtnInmuebleLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnInmuebleLibresActionPerformed
+        //Inmuebles libre
+        inmuebleList = inmuebleData.obtenerInmueblesNoAlquilados();
+        cargarTablaInmuebles();
+    }//GEN-LAST:event_rbtnInmuebleLibresActionPerformed
+
+    private void rbtnInmuebleAlquiladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnInmuebleAlquiladosActionPerformed
+        inmuebleList = inmuebleData.obtenerInmueblesAlquilados();
+        cargarTablaInmuebles();
+    }//GEN-LAST:event_rbtnInmuebleAlquiladosActionPerformed
+
+    private void rbtnInmuebleTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnInmuebleTodosActionPerformed
+        inmuebleList = inmuebleData.obtenerInmuebles();
+        cargarTablaInmuebles();
+    }//GEN-LAST:event_rbtnInmuebleTodosActionPerformed
+
     private void tablaPropietariosMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablaPropietariosMouseClicked
         javax.swing.JTable tableSource = (javax.swing.JTable) evt.getSource();
         int fila = tableSource.rowAtPoint(evt.getPoint());
@@ -694,7 +789,9 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarInmueble;
     private javax.swing.JButton btnAgregarInquilinos;
     private javax.swing.JButton btnAgregarPropietario;
+    private javax.swing.ButtonGroup btnGrupInmueble;
     private javax.swing.JButton btnRealizarContrato;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -704,6 +801,7 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -711,6 +809,9 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panelInquilinoTabs;
+    private javax.swing.JRadioButton rbtnInmuebleAlquilados;
+    private javax.swing.JRadioButton rbtnInmuebleLibres;
+    private javax.swing.JRadioButton rbtnInmuebleTodos;
     private javax.swing.JTable tablaContratos;
     private javax.swing.JTable tablaEmpleados;
     private javax.swing.JTable tablaInmuebles;

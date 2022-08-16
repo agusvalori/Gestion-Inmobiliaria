@@ -22,7 +22,7 @@ public class Contrato {
     private Double montoInicial;
     private Integer aumentosPorcentaje;
     private Integer aumentosPeriodos;
-    private Boolean estado=true;
+    private Boolean estado = true;
     private String observaciones;
 
     public Contrato() {
@@ -62,7 +62,7 @@ public class Contrato {
     }
 
     public LocalDate getFechaInicio() {
-        
+
         return fechaInicio;
     }
 
@@ -110,7 +110,7 @@ public class Contrato {
         this.garante = garante;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {        
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
@@ -148,106 +148,112 @@ public class Contrato {
             String _aumentosPeriodos, String _observaciones) {
         String mensaje = "";
 
-        // Validamos el inquilino
-        if (_inquilino != null && _inquilino.getId() != null) {
-            setInquilino(_inquilino);
-        } else {
-            mensaje += "Inquilino: No existe un inquilino\n";
-        }
-
-        // Validamos el Inmueble
-        if (_inmueble != null && _inmueble.getId() != null) {
-            setInmueble(_inmueble);
-        } else {
-            mensaje += "Inmueble: No existe un inmueble\n";
-        }
-
-        // Validamos el Garante
-        if (_garante != null && _garante.getId() != null) {
-            setGarante(_garante);
-        } else {
-            setGarante(null);
-        }
-
-        // Validamos la fecha de inicio
         try {
-            LocalDate currentDate = LocalDate.now();
-            LocalDate localDate = _fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            // Comprobamos que no sea una fecha anterior
-            if (!currentDate.isBefore(localDate)) {
-                setFechaInicio(localDate);
+            // Validamos el inquilino
+            if (_inquilino != null && _inquilino.getId() != null) {
+                setInquilino(_inquilino);
             } else {
-                mensaje += "Fecha: La fecha no puede ser anterior\n";
+                mensaje += "Inquilino: No existe un inquilino\n";
             }
 
-        } catch (Exception e) {
-            mensaje += "Fecha: Fecha invalida\n";
-        }
-
-        // Validamos la Duracion en meses del contrato
-        try {
-            if (Integer.parseInt(_duracionMeses) >= 12) {
-                setDuracionMeses(Integer.parseInt(_duracionMeses));
+            // Validamos el Inmueble
+            if (_inmueble != null && _inmueble.getId() != null) {
+                setInmueble(_inmueble);
             } else {
-                mensaje += "Duracion del contrato: No puede ser menor a 12 meses\n";
+                mensaje += "Inmueble: No existe un inmueble\n";
             }
-        } catch (Exception e) {
-            mensaje += "Duracion del contrato: Valores invalidos\n";
-        }
 
-        // Validamos la fecha de fin y le sumamos los meses de
-        if (getDuracionMeses() >= 12) {
+            // Validamos el Garante
+            if (_garante != null && _garante.getId() != null) {
+                setGarante(_garante);
+            } else {
+                setGarante(null);
+            }
+
+            // Validamos la fecha de inicio
             try {
-                setFechaFin(getFechaInicio().plusMonths(getDuracionMeses()));
+                LocalDate currentDate = LocalDate.now();
+                LocalDate localDate = _fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                // Comprobamos que no sea una fecha anterior
+                if (!currentDate.isBefore(localDate)) {
+                    setFechaInicio(localDate);
+                } else {
+                    mensaje += "Fecha: La fecha no puede ser anterior\n";
+                }
+
             } catch (Exception e) {
                 mensaje += "Fecha: Fecha invalida\n";
             }
-        }
 
-        // Validamos el monto inicial del contrato
-        try {
-            if (Double.parseDouble(_montoInicial) > 0) {
-                setMontoInicial(Double.parseDouble(_montoInicial));
-            } else {
-                mensaje += "Monto inicial: El monto no puede ser menor a 0\n";
+            // Validamos la Duracion en meses del contrato
+            try {
+                if (Integer.parseInt(_duracionMeses) >= 12) {
+                    setDuracionMeses(Integer.parseInt(_duracionMeses));
+                } else {
+                    mensaje += "Duracion del contrato: No puede ser menor a 12 meses\n";
+                }
+            } catch (Exception e) {
+                mensaje += "Duracion del contrato: Valores invalidos\n";
             }
 
-        } catch (Exception e) {
-            mensaje += "Monto inicial: Valores invalidos\n";
-        }
+            // Validamos la fecha de fin y le sumamos los meses de
+            if (getDuracionMeses() >= 12) {
+                try {
+                    setFechaFin(getFechaInicio().plusMonths(getDuracionMeses()));
+                } catch (Exception e) {
+                    mensaje += "Fecha: Fecha invalida\n";
+                }
+            }
 
-        // Validamos los aumentos el porcentaje
+            // Validamos el monto inicial del contrato
+            try {
+                if (Double.parseDouble(_montoInicial) > 0) {
+                    setMontoInicial(Double.parseDouble(_montoInicial));
+                } else {
+                    mensaje += "Monto inicial: El monto no puede ser menor a 0\n";
+                }
 
-        try {
-            if (Integer.parseInt(_aumentosPorcentaje) > 0 && Integer.parseInt(_aumentosPorcentaje) < 100) {
-                setAumentosPorcentaje(Integer.parseInt(_aumentosPorcentaje));
+            } catch (Exception e) {
+                mensaje += "Monto inicial: Valores invalidos\n";
+            }
+
+            // Validamos los aumentos el porcentaje
+
+            try {
+                if (Integer.parseInt(_aumentosPorcentaje) > 0 && Integer.parseInt(_aumentosPorcentaje) < 100) {
+                    setAumentosPorcentaje(Integer.parseInt(_aumentosPorcentaje));
+                } else {
+                    mensaje += "Aumento porcentaje: No puede ser menor a 0 o mayor a 100\n";
+                }
+            } catch (Exception e) {
+                mensaje += "Aumento porcentaje: Valores invalidos\n";
+            }
+
+            // Validamos los aumentos los periodos en meses
+            try {
+                if (Integer.parseInt(_aumentosPeriodos) > 0
+                        && Integer.parseInt(_aumentosPeriodos) <= getDuracionMeses()) {
+                    setAumentosPeriodos(Integer.parseInt(_aumentosPeriodos));
+                } else {
+                    mensaje += "Aumento periodos: No puede ser menor a 0 o mayor a la duracion del contrato en meses\n";
+                }
+            } catch (Exception e) {
+                mensaje += "Aumento periodos: Valores invalidos\n";
+            }
+
+            // Validamos las observaciones
+            if (!_observaciones.isBlank()) {
+                setObservaciones(_observaciones);
+            }
+
+            if (mensaje == "") {
+                return true;
             } else {
-                mensaje += "Aumento porcentaje: No puede ser menor a 0 o mayor a 100\n";
+                JOptionPane.showMessageDialog(null, mensaje);
+                return false;
             }
         } catch (Exception e) {
-            mensaje += "Aumento porcentaje: Valores invalidos\n";
-        }
-
-        // Validamos los aumentos los periodos en meses
-        try {
-            if (Integer.parseInt(_aumentosPeriodos) > 0 && Integer.parseInt(_aumentosPeriodos) <= getDuracionMeses()) {
-                setAumentosPeriodos(Integer.parseInt(_aumentosPeriodos));
-            } else {
-                mensaje += "Aumento periodos: No puede ser menor a 0 o mayor a la duracion del contrato en meses\n";
-            }
-        } catch (Exception e) {
-            mensaje += "Aumento periodos: Valores invalidos\n";
-        }
-
-        // Validamos las observaciones
-        if (!_observaciones.isBlank()) {
-            setObservaciones(_observaciones);
-        }
-
-        if (mensaje == "") {
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, mensaje);
+            JOptionPane.showMessageDialog(null, "Valores invalidos o en blanco");
             return false;
         }
 

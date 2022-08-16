@@ -138,6 +138,54 @@ public class ContratoData {
         return contrato;
     }
 
+
+    
+
+    public Boolean editarContrato(Contrato contrato) {
+        Boolean result = false;
+
+        try {
+            String querySql;
+            //Vemos si es un contrato con o sin garantes.
+            if (contrato.getGarante() != null) {
+                querySql = "UPDATE contrato SET id_inquilino=?, id_inmueble=?,fecha_inicio=?,duracion_meses=?,monto_inicial=?,aumentos_porcentaje=?, aumentos_periodo=?,estado=?,observacion=?,id_garante=?  WHERE id_contrato=?";
+            } else {
+                querySql = "UPDATE contrato SET id_inquilino=?, id_inmueble=?,fecha_inicio=?,duracion_meses=?,monto_inicial=?,aumentos_porcentaje=?, aumentos_periodo=?,estado=?,observacion=? WHERE id_contrato=? ";
+            }
+
+            PreparedStatement ps = conexion.prepareStatement(querySql);
+            ps.setInt(1, contrato.getInquilino().getId());
+            ps.setInt(2, contrato.getInmueble().getId());
+
+            ps.setDate(3, Date.valueOf(contrato.getFechaInicio()));
+            ps.setInt(4, contrato.getDuracionMeses());
+            ps.setDouble(5, contrato.getMontoInicial());
+            ps.setInt(6, contrato.getAumentosPorcentaje());
+            ps.setInt(7, contrato.getAumentosPeriodos());
+            ps.setBoolean(8, contrato.getEstado());
+            ps.setString(9, contrato.getObservaciones());
+            if (contrato.getGarante() != null) {
+                ps.setInt(10, contrato.getGarante().getId());
+                ps.setInt(11, contrato.getId());
+            }else{
+                ps.setInt(10, contrato.getId());
+            }
+
+            if (ps.executeUpdate()!=0) {                
+                result = true;
+                JOptionPane.showMessageDialog(null, "El contrato fue editado con exito");
+            }
+            ps.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puedo realizar el contrato \n" + e.getMessage(),
+                    "Error al realizar el contrato", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return result;
+    }
+
+
     public Boolean eliminarContrato(Integer id) {
         Boolean result = false;
         try {

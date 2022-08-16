@@ -129,11 +129,6 @@
                               <Component id="selectInmuebleTipo" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnVerInmueble" min="-2" pref="73" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnLimpiarInmueble" min="-2" pref="73" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel8" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
                                   <Component id="jLabel19" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
@@ -152,6 +147,10 @@
                                       <Component id="txfInmuebleId" min="-2" pref="120" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                                      <Component id="btnLimpiarInmueble" min="-2" pref="73" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -192,12 +191,9 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnVerInmueble" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnLimpiarInmueble" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <Component id="btnLimpiarInmueble" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -241,11 +237,6 @@
             <Component class="javax.swing.JTextField" name="txfInmuebleMonto">
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnVerInmueble">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ver"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="selectInmuebleTipo">
@@ -406,17 +397,11 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnVerInquilino" min="-2" pref="73" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                      <Component id="btnLimpiarInquilino" min="-2" pref="73" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txfInquilinoCalificacion" min="-2" pref="150" max="-2" attributes="0"/>
-                                  </Group>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnLimpiarInquilino" min="-2" pref="73" max="-2" attributes="0"/>
+                                  <Component id="txfInquilinoCalificacion" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -455,10 +440,7 @@
                           <Component id="txfInquilinoCalificacion" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnVerInquilino" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnLimpiarInquilino" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btnLimpiarInquilino" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -513,11 +495,6 @@
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Calificacion:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnVerInquilino">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ver"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txfInquilinoCalificacion">
@@ -746,6 +723,7 @@
             <Component class="javax.swing.JButton" name="btnGuardarContrato">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarContratoActionPerformed"/>
@@ -754,6 +732,7 @@
             <Component class="javax.swing.JButton" name="btnLimpiarContrato">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Limpiar"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarContratoActionPerformed"/>
@@ -762,7 +741,11 @@
             <Component class="javax.swing.JButton" name="btnBorrarContrato">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Borrar"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarContratoActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>

@@ -5,8 +5,10 @@
 package test;
 
 import data.Conexion;
+import data.InmuebleData;
 import data.InquilinoData;
 import data.PersonaData;
+import entities.Inmueble;
 import entities.Inquilino;
 import entities.Persona;
 
@@ -15,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 
 /**
  *
@@ -27,26 +28,48 @@ public class TestMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LocalDate currentDate = LocalDate.now();        
-        LocalDate oldDate = LocalDate.parse("2022-08-04");
 
-        System.out.println("Fecha Actual: "+currentDate);  
-        System.out.println("Fecha Anterior: "+oldDate);      
+        Conexion conexion = new Conexion();
+        Inmueble inmueble = new Inmueble();
+        ArrayList<Inmueble> inmuebleList = new ArrayList<>();
+        InmuebleData inmuebleData = new InmuebleData(conexion);
 
 
-        System.out.println("\nDamos formato a la fecha: dd-MM-YYYY");
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-YYYY");
-        System.out.println("Fecha Actual: "+formatoFecha.format(currentDate));  
-        System.out.println("Fecha Anterior: "+formatoFecha.format(oldDate));  
-
-        System.out.println("\nDamos formato a la fecha: dd/MM/YYYY");
-        formatoFecha = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-        System.out.println("Fecha Actual: "+formatoFecha.format(currentDate));  
-        System.out.println("Fecha Anterior: "+formatoFecha.format(oldDate)); 
-
-        System.out.println("\nEs anterior a hoy: \n"+currentDate.isBefore(oldDate));
+        System.out.println("Inmuebles Alquilados");
+        inmuebleList = inmuebleData.obtenerInmueblesAlquilados();
+        for (Inmueble inmueble2 : inmuebleList) {
+            System.out.println(inmueble2.getId()+" - "+inmueble2.getDireccion()+"\n");
+        }
         
-        
+        System.out.println("Inmuebles NO Alquilados");
+        inmuebleList = inmuebleData.obtenerInmueblesNoAlquilados();
+        for (Inmueble inmueble2 : inmuebleList) {
+            System.out.println(inmueble2.getId()+" - "+inmueble2.getDireccion()+"\n");
+        }
+
+
+
+        /*
+         * LocalDate currentDate = LocalDate.now();
+         * LocalDate oldDate = LocalDate.parse("2022-08-04");
+         * 
+         * System.out.println("Fecha Actual: "+currentDate);
+         * System.out.println("Fecha Anterior: "+oldDate);
+         * 
+         * 
+         * System.out.println("\nDamos formato a la fecha: dd-MM-YYYY");
+         * DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+         * System.out.println("Fecha Actual: "+formatoFecha.format(currentDate));
+         * System.out.println("Fecha Anterior: "+formatoFecha.format(oldDate));
+         * 
+         * System.out.println("\nDamos formato a la fecha: dd/MM/YYYY");
+         * formatoFecha = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+         * System.out.println("Fecha Actual: "+formatoFecha.format(currentDate));
+         * System.out.println("Fecha Anterior: "+formatoFecha.format(oldDate));
+         * 
+         * System.out.println("\nEs anterior a hoy: \n"+currentDate.isBefore(oldDate));
+         */
+
         /*
          * // TODO code application logic here
          * Conexion conexion = new Conexion();

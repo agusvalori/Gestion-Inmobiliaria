@@ -47,6 +47,19 @@ public class InmuebleDialogView extends javax.swing.JDialog {
         btnBorrar.setEnabled(true);
     }
 
+    public InmuebleDialogView(java.awt.Frame parent, boolean modal, Inmueble inmueble, InmuebleData inmuebleData, PropietarioData propietarioData) {
+        super(parent, modal);
+        initComponents();
+        limpiar();
+        this.inmuebleData = inmuebleData;
+        this.propietarioData = propietarioData;
+        this.inmueble = inmueble;
+        obtenerPropietarios();
+        obtenerInmueble();
+        txfPersonaDni.setText(String.valueOf(inmueble.getPropietario().getPersona().getDni()));
+        btnBorrar.setEnabled(true);
+    }
+
     private Boolean obtenerPropietarios() {
         Boolean result = false;
         if (inmueble.getPropietario() != null) {

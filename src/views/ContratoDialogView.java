@@ -169,7 +169,7 @@ public class ContratoDialogView extends javax.swing.JDialog {
 
         // Direccion
         modelComboBox = new DefaultComboBoxModel(inmuebleData
-                .obtenerInmueblesXTipoYZona(
+                .obtenerInmueblesNoAlquiladosXTipoYZona(
                         String.valueOf(selectInmuebleTipo.getSelectedItem()),
                         String.valueOf(selectInmuebleZona.getSelectedItem()))
                 .toArray());
@@ -967,7 +967,7 @@ public class ContratoDialogView extends javax.swing.JDialog {
                 selectInmuebleDireccion.setEnabled(true);
 
                 modelComboBox = new DefaultComboBoxModel(inmuebleData
-                        .obtenerInmueblesXTipoYZona(
+                        .obtenerInmueblesNoAlquiladosXTipoYZona(
                                 String.valueOf(selectInmuebleTipo.getSelectedItem()),
                                 String.valueOf(selectInmuebleZona.getSelectedItem()))
                         .toArray());
@@ -989,7 +989,7 @@ public class ContratoDialogView extends javax.swing.JDialog {
             selectInmuebleDireccion.setEnabled(true);
 
             modelComboBox = new DefaultComboBoxModel(inmuebleData
-                    .obtenerInmueblesXTipoYZona(
+                    .obtenerInmueblesNoAlquiladosXTipoYZona(
                             String.valueOf(selectInmuebleTipo.getSelectedItem()),
                             String.valueOf(selectInmuebleZona.getSelectedItem()))
                     .toArray());

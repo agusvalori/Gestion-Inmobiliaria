@@ -4,6 +4,7 @@
  */
 package views;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import data.Conexion;
@@ -20,6 +21,7 @@ public class InmuebleDialogView extends javax.swing.JDialog {
     private Inmueble inmueble = new Inmueble();
     private InmuebleData inmuebleData;
     private PropietarioData propietarioData;
+    private DefaultComboBoxModel modelComboBox;
 
     public InmuebleDialogView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -85,7 +87,7 @@ public class InmuebleDialogView extends javax.swing.JDialog {
         txfInmuebleId.setText(String.valueOf(inmueble.getId()));
         selectInmuebleTipo.setSelectedItem(inmueble.getTipoInmueble());
         selectInmuebleEstado.setSelectedItem(inmueble.getEstadoInmueble());
-        txfInmuebleZona.setText(inmueble.getZona());
+        selectInmuebleZona.setSelectedItem(inmueble.getZona());        
         txfInmuebleDireccion.setText(inmueble.getDireccion());
         txfInmuebleLocalidad.setText(inmueble.getLocalidad());
         selectInmuebleProvincia.setSelectedItem(inmueble.getProvincia());
@@ -106,7 +108,8 @@ public class InmuebleDialogView extends javax.swing.JDialog {
             inmueble.setDireccion(txfInmuebleDireccion.getText());
         }
 
-        inmueble.setZona(txfInmuebleZona.getText());
+
+        inmueble.setZona(selectInmuebleZona.getSelectedItem().toString());
         inmueble.setLocalidad(txfInmuebleLocalidad.getText());
         inmueble.setProvincia(selectInmuebleProvincia.getSelectedItem().toString());
         if (!txfMonto.getText().isBlank()) {
@@ -137,7 +140,11 @@ public class InmuebleDialogView extends javax.swing.JDialog {
         txfInmuebleId.setText("");
         selectInmuebleTipo.setSelectedItem("Casa");
         selectInmuebleEstado.setSelectedItem("Nueva");
-        txfInmuebleZona.setText("");
+
+        // Inmueble Zona
+        modelComboBox = new DefaultComboBoxModel(inmueble.getListZonaInmueble().toArray());
+        selectInmuebleZona.setModel(modelComboBox);
+        
         txfInmuebleDireccion.setText("");
         txfInmuebleLocalidad.setText("");
         selectInmuebleProvincia.setSelectedItem("San Luis");
@@ -174,7 +181,6 @@ public class InmuebleDialogView extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txfInmuebleZona = new javax.swing.JTextField();
         selectInmuebleTipo = new javax.swing.JComboBox<>();
         txfInmuebleId = new javax.swing.JTextField();
         txfInmuebleDireccion = new javax.swing.JTextField();
@@ -185,6 +191,7 @@ public class InmuebleDialogView extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         txfInmuebleLocalidad = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
+        selectInmuebleZona = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -251,6 +258,8 @@ public class InmuebleDialogView extends javax.swing.JDialog {
 
         jLabel20.setText("LOCALIDAD:");
 
+        selectInmuebleZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nueva", "Reacondicionada", " " }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -260,7 +269,7 @@ public class InmuebleDialogView extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -275,10 +284,6 @@ public class InmuebleDialogView extends javax.swing.JDialog {
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(selectInmuebleTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txfInmuebleZona, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -295,7 +300,11 @@ public class InmuebleDialogView extends javax.swing.JDialog {
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(selectInmuebleEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(1, 1, 1))))
+                                .addGap(1, 1, 1))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(selectInmuebleZona, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -304,7 +313,7 @@ public class InmuebleDialogView extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txfInmuebleId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -318,8 +327,8 @@ public class InmuebleDialogView extends javax.swing.JDialog {
                     .addComponent(selectInmuebleEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfInmuebleZona, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(selectInmuebleZona, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -567,7 +576,7 @@ public class InmuebleDialogView extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -624,8 +633,7 @@ public class InmuebleDialogView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txfPersonaDniActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txfPersonaDniActionPerformed
-        // TODO add your handling code here:
+    private void txfPersonaDniActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txfPersonaDniActionPerformed        
         try {
             inmueble.setPropietario(propietarioData.obtenerPropietariosXDni(Long.parseLong(txfPersonaDni.getText())));
         } catch (Exception e) {
@@ -763,11 +771,11 @@ public class InmuebleDialogView extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> selectInmuebleEstado;
     private javax.swing.JComboBox<String> selectInmuebleProvincia;
     private javax.swing.JComboBox<String> selectInmuebleTipo;
+    private javax.swing.JComboBox<String> selectInmuebleZona;
     private javax.swing.JTextArea txaInmuebleCaracteristica;
     private javax.swing.JTextField txfInmuebleDireccion;
     private javax.swing.JTextField txfInmuebleId;
     private javax.swing.JTextField txfInmuebleLocalidad;
-    private javax.swing.JTextField txfInmuebleZona;
     private javax.swing.JTextField txfMonto;
     private javax.swing.JTextField txfPersonaApellido;
     private javax.swing.JTextField txfPersonaDni;

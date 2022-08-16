@@ -121,73 +121,6 @@ public class InmuebleData {
         return inmueble;
     }
 
-    public ArrayList<Inmueble> obtenerInmueblesXTipoYZona(String tipo, String zona) {
-        ArrayList<Inmueble> inmuebleList = new ArrayList<>();
-        try {
-            String querySql = "SELECT * FROM inmueble WHERE tipo_inmueble=? AND zona=?";
-            PreparedStatement ps = conexion.prepareStatement(querySql);
-            ps.setString(1, tipo);
-            ps.setString(2, zona);
-            ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next()) {
-                Inmueble inmueble = new Inmueble();
-                inmueble.setId(resultSet.getInt("id_inmueble"));
-                // id_propietario,tipo_inmueble,estado_inmueble,zona,direccion,localidad,provincia,caracteristicas,monto_inicial,estado
-                inmueble.setPropietario(propietarioData.obtenerPropietariosXId(resultSet.getInt("id_propietario")));
-                inmueble.setTipoInmueble(resultSet.getString("tipo_inmueble"));
-                inmueble.setEstadoInmueble(resultSet.getString("estado_inmueble"));
-                inmueble.setZona(resultSet.getString("zona"));
-                inmueble.setDireccion(resultSet.getString("direccion"));
-                inmueble.setLocalidad(resultSet.getString("localidad"));
-                inmueble.setProvincia(resultSet.getString("provincia"));
-                inmueble.setCaracteristicas(resultSet.getString("caracteristicas"));
-                inmueble.setMontoInicial(Long.parseLong(resultSet.getString("monto_inicial")));
-                inmueble.setEstado(resultSet.getBoolean("estado"));
-                inmuebleList.add(inmueble);
-            }
-            ps.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al conseguir lista de propietarios" + e.getMessage());
-        }
-        return inmuebleList;
-    }
-
-    public ArrayList<Inmueble> obtenerInmueblesXTipoYZonaNoAlquilados(String tipo, String zona) {
-        ArrayList<Inmueble> inmuebleList = new ArrayList<>();
-        try {
-            String querySql = "SELECT inmueble.* FROM contrato"
-                    + "INNER JOIN inmueble"
-                    + "ON contrato.id_inmueble=inmueble.id_inmueble";
-            // +"WHERE inmueble.tipo_inmueble=? AND .inmueble.zona=?";
-            PreparedStatement ps = conexion.prepareStatement(querySql);
-            ps.setString(1, tipo);
-            ps.setString(2, zona);
-            ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next()) {
-                Inmueble inmueble = new Inmueble();
-                inmueble.setId(resultSet.getInt("id_inmueble"));
-                // id_propietario,tipo_inmueble,estado_inmueble,zona,direccion,localidad,provincia,caracteristicas,monto_inicial,estado
-                inmueble.setPropietario(propietarioData.obtenerPropietariosXId(resultSet.getInt("id_propietario")));
-                inmueble.setTipoInmueble(resultSet.getString("tipo_inmueble"));
-                inmueble.setEstadoInmueble(resultSet.getString("estado_inmueble"));
-                inmueble.setZona(resultSet.getString("zona"));
-                inmueble.setDireccion(resultSet.getString("direccion"));
-                inmueble.setLocalidad(resultSet.getString("localidad"));
-                inmueble.setProvincia(resultSet.getString("provincia"));
-                inmueble.setCaracteristicas(resultSet.getString("caracteristicas"));
-                inmueble.setMontoInicial(Long.parseLong(resultSet.getString("monto_inicial")));
-                inmueble.setEstado(resultSet.getBoolean("estado"));
-                inmuebleList.add(inmueble);
-            }
-            ps.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al conseguir lista de propietarios" + e.getMessage());
-        }
-        return inmuebleList;
-    }
-
     public ArrayList<Inmueble> obtenerInmueblesNoAlquilados() {
         ArrayList<Inmueble> inmuebleList = new ArrayList<>();
         try {
@@ -213,7 +146,8 @@ public class InmuebleData {
             }
             ps.close();
         } catch (Exception e) {
-            System.out.println("Error al conseguir lista de inmuebles No alquilados\n" + e.getMessage()+"\n" +e.toString() );
+            System.out.println(
+                    "Error al conseguir lista de inmuebles No alquilados\n" + e.getMessage() + "\n" + e.toString());
         }
         return inmuebleList;
     }
@@ -243,7 +177,39 @@ public class InmuebleData {
             }
             ps.close();
         } catch (Exception e) {
-            System.out.println("Error al conseguir lista de inmuebles No alquilados\n" + e.getMessage()+"\n" +e.toString() );
+            System.out.println(
+                    "Error al conseguir lista de inmuebles No alquilados\n" + e.getMessage() + "\n" + e.toString());
+        }
+        return inmuebleList;
+    }
+
+    public ArrayList<Inmueble> obtenerInmueblesNoAlquiladosXTipoYZona(String tipo, String zona) {
+        ArrayList<Inmueble> inmuebleList = new ArrayList<>();
+        try {
+            String querySql = "SELECT inmueble.* FROM inmueble LEFT JOIN contrato ON contrato.id_inmueble=inmueble.id_inmueble WHERE  inmueble.zona=? AND inmueble.tipo_inmueble=? AND contrato.id_inmueble is Null";                    ;            
+            PreparedStatement ps = conexion.prepareStatement(querySql);            
+            ps.setString(1, zona);
+            ps.setString(2, tipo);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Inmueble inmueble = new Inmueble();
+                inmueble.setId(resultSet.getInt("id_inmueble"));
+                // id_propietario,tipo_inmueble,estado_inmueble,zona,direccion,localidad,provincia,caracteristicas,monto_inicial,estado
+                inmueble.setPropietario(propietarioData.obtenerPropietariosXId(resultSet.getInt("id_propietario")));
+                inmueble.setTipoInmueble(resultSet.getString("tipo_inmueble"));
+                inmueble.setEstadoInmueble(resultSet.getString("estado_inmueble"));
+                inmueble.setZona(resultSet.getString("zona"));
+                inmueble.setDireccion(resultSet.getString("direccion"));
+                inmueble.setLocalidad(resultSet.getString("localidad"));
+                inmueble.setProvincia(resultSet.getString("provincia"));
+                inmueble.setCaracteristicas(resultSet.getString("caracteristicas"));
+                inmueble.setMontoInicial(Long.parseLong(resultSet.getString("monto_inicial")));
+                inmueble.setEstado(resultSet.getBoolean("estado"));
+                inmuebleList.add(inmueble);
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al conseguir lista de propietarios" + e.getMessage());
         }
         return inmuebleList;
     }

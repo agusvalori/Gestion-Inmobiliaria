@@ -47,6 +47,26 @@ public class TestMain {
             System.out.println(inmueble2.getId()+" - "+inmueble2.getDireccion()+"\n");
         }
 
+        System.out.println("Inmuebles NO Alquilados x zona: \nCentro y tipo: Casa");
+        inmuebleList = inmuebleData.obtenerInmueblesNoAlquiladosXTipoYZona("Casa","Centro");
+        for (Inmueble inmueble2 : inmuebleList) {
+            System.out.println(inmueble2.getId()+" - "+inmueble2.getDireccion()+"\n");
+        }
+        
+        System.out.println("Inmuebles NO Alquilados x zona: \nLas Miranda y tipo: Casa");
+        inmuebleList = inmuebleData.obtenerInmueblesNoAlquiladosXTipoYZona("Casa","Las Miranda");
+        for (Inmueble inmueble2 : inmuebleList) {
+            System.out.println(inmueble2.getId()+" - "+inmueble2.getDireccion()+"\n");
+        }
+        
+        System.out.println("Inmuebles NO Alquilados x zona: \nLas Miranda y tipo: Departamento");
+        inmuebleList = inmuebleData.obtenerInmueblesNoAlquiladosXTipoYZona("Departamento","Las Miranda");
+        for (Inmueble inmueble2 : inmuebleList) {
+            System.out.println(inmueble2.getId()+" - "+inmueble2.getDireccion()+"\n");
+        }
+
+        
+
 
 
         /*

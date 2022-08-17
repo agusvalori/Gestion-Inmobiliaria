@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import entities.Inmueble;
+import entities.Persona;
+import entities.Propietario;
 
 /**
  *
@@ -31,7 +33,13 @@ public class InmuebleData {
 
     public Boolean agregarInmueble(Inmueble inmueble) {
         Boolean result = false;
+
+
         try {
+            if(inmueble.getPropietario().getId()==null)            {
+                Propietario propietario = new Propietario();
+                
+            }
             String querySql = "INSERT INTO inmueble(id_propietario,tipo_inmueble,estado_inmueble,zona,direccion,localidad,provincia,caracteristicas,monto_inicial,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(querySql, RETURN_GENERATED_KEYS);
             ps.setInt(1, inmueble.getPropietario().getId());

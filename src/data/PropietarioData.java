@@ -111,9 +111,11 @@ public class PropietarioData {
                 PreparedStatement ps = conexion.prepareStatement(querySql);
                 ps.setLong(1, propietario.getPersona().getId());
                 ResultSet result = ps.executeQuery();
-                while (result.next()) {                    
+                if (result.next()) {                    
                     propietario.setId(result.getInt("id_propietario"));
-                } 
+                } else{
+                    propietario = null;
+                }
                 ps.close();
             } else {
                 propietario = null;

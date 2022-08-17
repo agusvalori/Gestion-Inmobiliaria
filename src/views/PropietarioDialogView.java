@@ -7,6 +7,7 @@ package views;
 import javax.swing.JOptionPane;
 
 import data.Conexion;
+import data.PersonaData;
 import data.PropietarioData;
 import entities.Persona;
 import entities.Propietario;
@@ -19,6 +20,7 @@ public class PropietarioDialogView extends javax.swing.JDialog {
 
         private Propietario propietario = new Propietario();
         private PropietarioData propietarioData;
+        private PersonaData personaData;
 
         public PropietarioDialogView(java.awt.Frame parent, boolean modal) {
                 super(parent, modal);
@@ -29,12 +31,14 @@ public class PropietarioDialogView extends javax.swing.JDialog {
                 super(parent, modal);
                 initComponents();
                 propietarioData = new PropietarioData(conexion);
+                personaData = new PersonaData(conexion);
         }
 
         public PropietarioDialogView(java.awt.Frame parent, boolean modal, Conexion conexion, Propietario propietario) {
                 super(parent, modal);
                 initComponents();
                 propietarioData = new PropietarioData(conexion);
+                personaData = new PersonaData(conexion);
 
                 this.propietario = propietario;
                 obtenerDatosPropietarios();
@@ -712,8 +716,19 @@ public class PropietarioDialogView extends javax.swing.JDialog {
                                 } else {
                                         propietario = new Propietario();
                                         String dni = txfDni.getText();
-                                        limpiarDatosPersonas(true);
-                                        txfDni.setText(dni);
+
+                                        Persona persona = personaData
+                                                        .obtenerPersonaXDni(Long.parseLong(dni));
+                                        if (persona != null) {
+                                                propietario.setPersona(persona);
+                                                obtenerDatosPropietarios();
+                                                txfDni.setText(dni);
+                                        } else {
+
+                                                limpiarDatosPersonas(true);
+                                                txfDni.setText(dni);
+                                        }
+
                                 }
                                 txfNombre.setFocusable(true);
                                 btnLimpiar.setEnabled(true);

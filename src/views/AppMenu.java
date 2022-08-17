@@ -208,7 +208,7 @@ public class AppMenu extends javax.swing.JFrame {
 
         btnGrupInmueble = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        tabInicio = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -222,7 +222,7 @@ public class AppMenu extends javax.swing.JFrame {
         lblInicioInmueblesTotal = new javax.swing.JLabel();
         lblInicioInmueblesAlquilados = new javax.swing.JLabel();
         lblInicioInmueblesLibres = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        tabInmueble = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaInmuebles = new javax.swing.JTable();
         btnAgregarInmueble = new javax.swing.JButton();
@@ -231,26 +231,22 @@ public class AppMenu extends javax.swing.JFrame {
         rbtnInmuebleTodos = new javax.swing.JRadioButton();
         rbtnInmuebleAlquilados = new javax.swing.JRadioButton();
         rbtnInmuebleLibres = new javax.swing.JRadioButton();
-        panelInquilinoTabs = new javax.swing.JPanel();
+        tabInquilino = new javax.swing.JPanel();
         btnAgregarInquilinos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaInquilinos = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        tabContrato = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablaContratos = new javax.swing.JTable();
         btnRealizarContrato = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        tabEmpleados = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaEmpleados = new javax.swing.JTable();
         btnAgregarEmpleados = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        tabPropietario = new javax.swing.JPanel();
         btnAgregarPropietario = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaPropietarios = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -391,24 +387,24 @@ public class AppMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout tabInicioLayout = new javax.swing.GroupLayout(tabInicio);
+        tabInicio.setLayout(tabInicioLayout);
+        tabInicioLayout.setHorizontalGroup(
+            tabInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        tabInicioLayout.setVerticalGroup(
+            tabInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(332, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Inicio", jPanel1);
+        jTabbedPane1.addTab("Inicio", tabInicio);
 
         tablaInmuebles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -497,38 +493,38 @@ public class AppMenu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout tabInmuebleLayout = new javax.swing.GroupLayout(tabInmueble);
+        tabInmueble.setLayout(tabInmuebleLayout);
+        tabInmuebleLayout.setHorizontalGroup(
+            tabInmuebleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabInmuebleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tabInmuebleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(tabInmuebleLayout.createSequentialGroup()
                         .addGap(248, 248, 248)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(tabInmuebleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabInmuebleLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAgregarInmueble, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(249, 249, 249)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        tabInmuebleLayout.setVerticalGroup(
+            tabInmuebleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabInmuebleLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(btnAgregarInmueble)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Inmuebles", jPanel2);
+        jTabbedPane1.addTab("Inmuebles", tabInmueble);
 
         btnAgregarInquilinos.setText("Agregar Inquilinos");
         btnAgregarInquilinos.addActionListener(new java.awt.event.ActionListener() {
@@ -563,31 +559,31 @@ public class AppMenu extends javax.swing.JFrame {
             tablaInquilinos.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        javax.swing.GroupLayout panelInquilinoTabsLayout = new javax.swing.GroupLayout(panelInquilinoTabs);
-        panelInquilinoTabs.setLayout(panelInquilinoTabsLayout);
-        panelInquilinoTabsLayout.setHorizontalGroup(
-            panelInquilinoTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInquilinoTabsLayout.createSequentialGroup()
+        javax.swing.GroupLayout tabInquilinoLayout = new javax.swing.GroupLayout(tabInquilino);
+        tabInquilino.setLayout(tabInquilinoLayout);
+        tabInquilinoLayout.setHorizontalGroup(
+            tabInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabInquilinoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInquilinoTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tabInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInquilinoTabsLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabInquilinoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAgregarInquilinos, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        panelInquilinoTabsLayout.setVerticalGroup(
-            panelInquilinoTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInquilinoTabsLayout.createSequentialGroup()
+        tabInquilinoLayout.setVerticalGroup(
+            tabInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabInquilinoLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(btnAgregarInquilinos)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Inquilinos", panelInquilinoTabs);
+        jTabbedPane1.addTab("Inquilinos", tabInquilino);
 
         tablaContratos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -622,23 +618,23 @@ public class AppMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout tabContratoLayout = new javax.swing.GroupLayout(tabContrato);
+        tabContrato.setLayout(tabContratoLayout);
+        tabContratoLayout.setHorizontalGroup(
+            tabContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabContratoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tabContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(tabContratoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnRealizarContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        tabContratoLayout.setVerticalGroup(
+            tabContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabContratoLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(btnRealizarContrato)
                 .addGap(18, 18, 18)
@@ -646,7 +642,7 @@ public class AppMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Contratos", jPanel3);
+        jTabbedPane1.addTab("Contratos", tabContrato);
 
         tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -686,31 +682,31 @@ public class AppMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout tabEmpleadosLayout = new javax.swing.GroupLayout(tabEmpleados);
+        tabEmpleados.setLayout(tabEmpleadosLayout);
+        tabEmpleadosLayout.setHorizontalGroup(
+            tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabEmpleadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabEmpleadosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAgregarEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        tabEmpleadosLayout.setVerticalGroup(
+            tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabEmpleadosLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(btnAgregarEmpleados)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Empleados", jPanel4);
+        jTabbedPane1.addTab("Empleados", tabEmpleados);
 
         btnAgregarPropietario.setText("Agregar Propietarios");
         btnAgregarPropietario.addActionListener(new java.awt.event.ActionListener() {
@@ -745,43 +741,31 @@ public class AppMenu extends javax.swing.JFrame {
             tablaPropietarios.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout tabPropietarioLayout = new javax.swing.GroupLayout(tabPropietario);
+        tabPropietario.setLayout(tabPropietarioLayout);
+        tabPropietarioLayout.setHorizontalGroup(
+            tabPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabPropietarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(tabPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabPropietarioLayout.createSequentialGroup()
                         .addGap(0, 359, Short.MAX_VALUE)
                         .addComponent(btnAgregarPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 359, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        tabPropietarioLayout.setVerticalGroup(
+            tabPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabPropietarioLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(btnAgregarPropietario)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Propietarios", jPanel5);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-
-        jMenu3.setText("jMenu3");
-        jMenu2.add(jMenu3);
-
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
+        jTabbedPane1.addTab("Propietarios", tabPropietario);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -955,17 +939,8 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -979,10 +954,15 @@ public class AppMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblInicioInmueblesAlquilados;
     private javax.swing.JLabel lblInicioInmueblesLibres;
     private javax.swing.JLabel lblInicioInmueblesTotal;
-    private javax.swing.JPanel panelInquilinoTabs;
     private javax.swing.JRadioButton rbtnInmuebleAlquilados;
     private javax.swing.JRadioButton rbtnInmuebleLibres;
     private javax.swing.JRadioButton rbtnInmuebleTodos;
+    private javax.swing.JPanel tabContrato;
+    private javax.swing.JPanel tabEmpleados;
+    private javax.swing.JPanel tabInicio;
+    private javax.swing.JPanel tabInmueble;
+    private javax.swing.JPanel tabInquilino;
+    private javax.swing.JPanel tabPropietario;
     private javax.swing.JTable tablaContratos;
     private javax.swing.JTable tablaEmpleados;
     private javax.swing.JTable tablaInmuebles;
